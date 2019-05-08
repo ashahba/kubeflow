@@ -11,8 +11,8 @@ DEPLOY_NAME=deploy_name_placeholder
 gcloud container clusters get-credentials ${DEPLOY_NAME} --zone ${ZONE} --project ${PROJECT_ID}
 
 echo "Checking load balancing resource"
-for i in $(seq 1 10)
-do kubectl get pods -n kubeflow --selector=service=ambassador --field-selector=status.phase=Running | grep -q 'Running' && break || sleep 10
+for i in $(seq 1 10); do
+  kubectl get pods -n kubeflow --selector=service=ambassador --field-selector=status.phase=Running | grep -q 'Running' && break || sleep 10
 done
 
 POD_NAME=$(kubectl get pods -n kubeflow --selector=service=ambassador --field-selector=status.phase=Running -o jsonpath="{.items[0].metadata.name}")

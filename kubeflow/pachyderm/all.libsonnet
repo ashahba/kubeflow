@@ -7,10 +7,8 @@
   // Also The docs http://pachyderm.readthedocs.io/en/latest/deployment/google_cloud_platform.html
   // say it should be creating a storage class but I don't see that.
 
-
   // All pachyderm components
   all(params, env):: {
-
 
     local base = [
       $.parts(params, env).secret,
@@ -55,7 +53,6 @@
     // However, in some cases an application may use multiple namespaces in which
     // case the namespace for a particular component will be a parameter.
     local namespace = if std.objectHas(params, "namespace") then params.namespace else env.namespace,
-
 
     local backend =
       if std.objectHas(params, "backend") then
@@ -579,7 +576,6 @@
         ],
       },
     },  // pachd statefulset
-
 
     // A headless service is needed for the etcd statefulset
     etcdHeadlessService:: {

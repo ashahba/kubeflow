@@ -30,13 +30,13 @@ import (
 
 // start with easy case: each server struct only has one valid pair of u/p
 type authServer struct {
-	username	string
+	username string
 	// password bcrypt hash
-	pwhash      string
+	pwhash string
 	// authorized cookies and their expire time (12 hour by default)
-	cookies 	map[string]time.Time
-	serverMux   sync.Mutex
-	allowHttp	bool
+	cookies   map[string]time.Time
+	serverMux sync.Mutex
+	allowHttp bool
 }
 
 const CookieName = "KUBEFLOW-AUTH-KEY"
@@ -50,9 +50,9 @@ func NewAuthServer(opt *options.ServerOption) *authServer {
 		log.Fatal("error:", err)
 	}
 	server := &authServer{
-		username: opt.Username,
-		pwhash: string(data),
-		cookies: make(map[string]time.Time),
+		username:  opt.Username,
+		pwhash:    string(data),
+		cookies:   make(map[string]time.Time),
 		allowHttp: opt.AllowHttp,
 	}
 	return server
@@ -60,7 +60,7 @@ func NewAuthServer(opt *options.ServerOption) *authServer {
 
 // Default auth check service
 func (s *authServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if strings.HasPrefix(r.URL.Path, "/" + WhoAmIPath) {
+	if strings.HasPrefix(r.URL.Path, "/"+WhoAmIPath) {
 		// Used for health check
 		log.Infof("Allow health check")
 		w.WriteHeader(http.StatusOK)
@@ -75,7 +75,7 @@ func (s *authServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Infof("Path check, url: %v, path: %v", r.URL, r.URL.Path)
 	// login page open to everyone; all other path requires auth with Password or cookie
-	if strings.HasPrefix(r.URL.Path, "/" + LoginPagePath) || s.authCookie(r) == true {
+	if strings.HasPrefix(r.URL.Path, "/"+LoginPagePath) || s.authCookie(r) == true {
 		// Handle user's re-login
 		// They already have auth cookie in browser, so "StatusResetContent" bring them to kubeflow central dashboard.
 		if r.Header.Get(LoginPageHeader) != "" {
@@ -109,7 +109,7 @@ func (s *authServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Infof("Unauthorized, redirect to %v", "https://" + path.Join(r.Host, LoginPagePath))
+	log.Infof("Unauthorized, redirect to %v", "https://"+path.Join(r.Host, LoginPagePath))
 	// redirect to login page
 	s.redirectToLogin(w, r)
 }
@@ -159,7 +159,7 @@ func (s *authServer) authCookie(r *http.Request) bool {
 
 // redirect to login page when unauthorized
 func (s *authServer) redirectToLogin(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://" + path.Join(r.Host, LoginPagePath), http.StatusTemporaryRedirect)
+	http.Redirect(w, r, "https://"+path.Join(r.Host, LoginPagePath), http.StatusTemporaryRedirect)
 }
 
 func generateCookieValue() string {
@@ -184,10 +184,10 @@ func (s *authServer) setCookieAndReset(w http.ResponseWriter, r *http.Request) {
 	cookieVal := generateCookieValue()
 	s.addNewCookieValue(cookieVal)
 	cookie := http.Cookie{
-		Name: CookieName,
-		Value: cookieVal,
+		Name:    CookieName,
+		Value:   cookieVal,
 		Expires: time.Now().Add(12 * time.Hour),
-		Path: "/",
+		Path:    "/",
 		// prevent cross-origin information leakage.
 		SameSite: http.SameSiteStrictMode,
 	}
@@ -207,4 +207,3 @@ func (s *authServer) Start(port int) {
 	http.Handle("/", s)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }
-

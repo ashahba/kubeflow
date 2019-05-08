@@ -192,7 +192,6 @@ data:
     sleep 5
     kubectl apply -f ${pathToResourceYAML}
 
-
 ---
 # Source: istio/charts/grafana/templates/configmap-dashboards.yaml
 
@@ -12111,7 +12110,6 @@ data:
           names:
           - istio-system
 
-
       relabel_configs:
       - source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
         action: keep
@@ -12381,7 +12379,6 @@ data:
     fi
     sleep 5
     kubectl apply -f ${pathToResourceYAML}
-
 
 ---
 # Source: istio/templates/configmap.yaml
@@ -13869,7 +13866,6 @@ spec:
     istio: mixer
     istio-mixer-type: telemetry
 ---
-
 
 ---
 # Source: istio/charts/pilot/templates/service.yaml
@@ -15548,7 +15544,6 @@ spec:
 ---
 # Source: istio/charts/tracing/templates/deployment-jaeger.yaml
 
-
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -15643,8 +15638,6 @@ spec:
                 operator: In
                 values:
                 - s390x
-
-
 
 ---
 # Source: istio/charts/gateways/templates/autoscale.yaml
@@ -15846,8 +15839,6 @@ spec:
   selector:
     app: jaeger
 
-
-
 ---
 # Source: istio/charts/tracing/templates/service.yaml
 apiVersion: v1
@@ -15921,7 +15912,6 @@ webhooks:
     namespaceSelector:
       matchLabels:
         istio-injection: enabled
-
 
 ---
 # Source: istio/charts/galley/templates/poddisruptionbudget.yaml

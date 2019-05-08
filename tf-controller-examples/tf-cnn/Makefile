@@ -62,7 +62,6 @@ push_dockerhub: build_dockerhub
 
 build-images: build_gcr build_dockerhub push_dockerhub push_gcr
 
-
 build-templates:
 	python create_job_specs.py --cpu_image=$(PUBLISHED_CPU) --gpu_image=$(PUBLISHED_GPU) \
 		--gpu --num_workers=1 --output=tf_job_gpu.yaml

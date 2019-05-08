@@ -25,7 +25,6 @@ notebooks, jobs, and other components can be deployed and run in this namespace.
 
 - Enable a forward path to include proposed [Security Profiles](https://github.com/kubernetes/community/blob/a8cb2060dc621664c86b185c7426367994b181b5/keps/draft-20180418-security-profile.md)
 
-
 ## Design
 
 Protected Namespaces allow a data scientist to use shared kubeflow components but within a namespace that is protected.
@@ -105,7 +104,6 @@ Both custom resources have an associated controllers which do the following:
   - watches for __Permission__ Custom Resources in any protected namespace
   - creates a Role and RoleBinding Resource
 
-
 The user flow is as follows:
 
 ![userflow](./docs/userflow.png "userflow")
@@ -113,7 +111,6 @@ The user flow is as follows:
 The controllers are namescoped and watch / create resources in different namespaces shown below:
 
 ![namespace groups](./docs/namespacegroups.png "namespace groups")
-
 
 ### Data Structures
 

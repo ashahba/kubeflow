@@ -2,7 +2,6 @@
 
 > Prototypes for running Paddle jobs.
 
-
 * [Quickstart](#quickstart)
 * [Using Prototypes](#using-prototypes)
   * [io.ksonnet.pkg.paddle-operator](#io.ksonnet.pkg.paddle-operator)

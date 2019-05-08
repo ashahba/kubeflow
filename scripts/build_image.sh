@@ -18,9 +18,9 @@ parseArgs() {
 
       eval ${_name}="${_value}"
     elif [[ $1 =~ ^--(.*)$ ]]; then
-    _name=${BASH_REMATCH[1]}
-    _value=true
-    eval ${_name}="${_value}"
+      _name=${BASH_REMATCH[1]}
+      _value=true
+      eval ${_name}="${_value}"
     else
       echo "Argument $1 did not match the pattern --{name}={value} or --{name}"
       exit 1

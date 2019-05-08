@@ -188,7 +188,6 @@
       },
     },  // service account
 
-
     // Grant admin permission so the pipeline can launch any resource in the cluster.
     pipelineRunnerRole: {
       apiVersion: "rbac.authorization.k8s.io/v1beta1",

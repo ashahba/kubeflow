@@ -13,7 +13,7 @@ gcpCreateSecretsDir() {
   # 1. We put the secrets in a directory with a .gitignore file
   # 2. We will delete the secrets immediately.
   if [ ! -f ${KUBEFLOW_SECRETS_DIR}/.gitignore ]; then
-    cat > ${KUBEFLOW_SECRETS_DIR}/.gitignore <<EOF
+    cat > ${KUBEFLOW_SECRETS_DIR}/.gitignore << EOF
 **
 EOF
   fi

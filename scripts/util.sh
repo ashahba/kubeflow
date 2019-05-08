@@ -19,7 +19,7 @@ check_installed_deps() {
   declare -a kf_deps=("ks" "kubectl")
 
   for kf_dep in "${kf_app[@]}"; do
-    if ! which "${kf_dep}" &>/dev/null && ! type -a "${kf_dep}" &>/dev/null ; then
+    if ! which "${kf_dep}" &> /dev/null && ! type -a "${kf_dep}" &> /dev/null; then
       echo "You don't have ${kf_dep} installed. Please install ${kf_dep}."
       exit 1
     fi
@@ -38,7 +38,7 @@ check_installed_deps() {
 checkInstallPy() {
   local PYPI=$1
   local MOD=$2
-  if python -c "import pkgutil; exit(pkgutil.find_loader('${MOD}'))" &>/dev/null; then
+  if python -c "import pkgutil; exit(pkgutil.find_loader('${MOD}'))" &> /dev/null; then
     echo "Failed to import python module ${MOD}."
     echo "You don't have ${PYPI} installed. Please install ${PYPI}."
     exit 1
@@ -132,7 +132,7 @@ createKsApp() {
   ks generate application application
 }
 
-createKsEnv(){
+createKsEnv() {
   pushd ${KUBEFLOW_KS_DIR}
   set +e
   O=$(ks env describe default 2>&1)

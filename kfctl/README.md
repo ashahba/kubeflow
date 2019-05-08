@@ -40,7 +40,6 @@ This will be implemented by the golang version (ie: remove .sh).
 
 ### 5. Avoid including extraneous dependencies in the library.
 
-
 ## Current Design
 
 ### UI REST Entry Points
@@ -140,7 +139,6 @@ Calls KsService.CreateApp(Context, CreateRequest, Deployment) //not relevant to 
 ## Appendix
 
 ### Existing Interfaces and Types
-
 
 - Note: MOVE annotations will also result in a KfApi object being created that uses these types
 

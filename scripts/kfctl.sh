@@ -37,7 +37,7 @@ export KUBEFLOW_EXTENDEDINFO=${KUBEFLOW_EXTENDEDINFO:-false}
 if ! which envsubst > /dev/null 2>&1; then
   envsubst() {
     while read line; do
-      line=$( echo $line | sed 's/"/\\"/g' )
+      line=$(echo $line | sed 's/"/\\"/g')
       eval echo $line
     done
   }
@@ -62,27 +62,27 @@ createEnv() {
   # writeEnv updates env.sh when any env var changes
   # eg: envsubst < input.tmpl > env.sh
   INPUT+=('PLATFORM=$PLATFORM\n'
-          'KUBEFLOW_REPO=$KUBEFLOW_REPO\n'
-          'KUBEFLOW_VERSION=$KUBEFLOW_VERSION\n'
-          "KUBEFLOW_COMPONENTS='$KUBEFLOW_COMPONENTS'\n"
-          'KUBEFLOW_EXTENDEDINFO=$KUBEFLOW_EXTENDEDINFO\n'
-          'KUBEFLOW_KS_DIR=$KUBEFLOW_KS_DIR\n'
-          'KUBEFLOW_DOCKER_REGISTRY=$KUBEFLOW_DOCKER_REGISTRY\n'
-          'DOCKER_REGISTRY_KATIB_NAMESPACE=$DOCKER_REGISTRY_KATIB_NAMESPACE\n'
-          'K8S_NAMESPACE=$K8S_NAMESPACE\n'
-          'KUBEFLOW_PLATFORM=$KUBEFLOW_PLATFORM\n'
-          'MOUNT_LOCAL=$MOUNT_LOCAL\n'
-          'DEPLOYMENT_NAME=$DEPLOYMENT_NAME\n')
+    'KUBEFLOW_REPO=$KUBEFLOW_REPO\n'
+    'KUBEFLOW_VERSION=$KUBEFLOW_VERSION\n'
+    "KUBEFLOW_COMPONENTS='$KUBEFLOW_COMPONENTS'\n"
+    'KUBEFLOW_EXTENDEDINFO=$KUBEFLOW_EXTENDEDINFO\n'
+    'KUBEFLOW_KS_DIR=$KUBEFLOW_KS_DIR\n'
+    'KUBEFLOW_DOCKER_REGISTRY=$KUBEFLOW_DOCKER_REGISTRY\n'
+    'DOCKER_REGISTRY_KATIB_NAMESPACE=$DOCKER_REGISTRY_KATIB_NAMESPACE\n'
+    'K8S_NAMESPACE=$K8S_NAMESPACE\n'
+    'KUBEFLOW_PLATFORM=$KUBEFLOW_PLATFORM\n'
+    'MOUNT_LOCAL=$MOUNT_LOCAL\n'
+    'DEPLOYMENT_NAME=$DEPLOYMENT_NAME\n')
   FORMAT+=('$PLATFORM$KUBEFLOW_REPO'
-           '$KUBEFLOW_VERSION'
-           '$KUBEFLOW_KS_DIR'
-           '$KUBEFLOW_DOCKER_REGISTRY'
-           '$KUBEFLOW_COMPONENTS'
-           '$DOCKER_REGISTRY_KATIB_NAMESPACE'
-           '$K8S_NAMESPACE'
-           '$KUBEFLOW_PLATFORM$MOUNT_LOCAL'
-           '$DEPLOYMENT_NAME'
-           '$KUBEFLOW_EXTENDEDINFO')
+    '$KUBEFLOW_VERSION'
+    '$KUBEFLOW_KS_DIR'
+    '$KUBEFLOW_DOCKER_REGISTRY'
+    '$KUBEFLOW_COMPONENTS'
+    '$DOCKER_REGISTRY_KATIB_NAMESPACE'
+    '$K8S_NAMESPACE'
+    '$KUBEFLOW_PLATFORM$MOUNT_LOCAL'
+    '$DEPLOYMENT_NAME'
+    '$KUBEFLOW_EXTENDEDINFO')
 
   export PLATFORM=${PLATFORM:-""}
   export GKE_API_VERSION=${GKE_API_VERSION:-""}
@@ -111,15 +111,15 @@ createEnv() {
     aws)
       export KUBEFLOW_PLATFORM=aws
       INPUT+=('AWS_CLUSTER_NAME=$AWS_CLUSTER_NAME\n'
-              'AWS_REGION=$AWS_REGION\n'
-              'AWS_NODEGROUP_ROLE_NAMES=$AWS_NODEGROUP_ROLE_NAMES\n'
-              'KUBEFLOW_INFRA_DIR=$KUBEFLOW_INFRA_DIR\n'
-              'KUBEFLOW_K8S_MANIFESTS_DIR=$KUBEFLOW_K8S_MANIFESTS_DIR\n')
+        'AWS_REGION=$AWS_REGION\n'
+        'AWS_NODEGROUP_ROLE_NAMES=$AWS_NODEGROUP_ROLE_NAMES\n'
+        'KUBEFLOW_INFRA_DIR=$KUBEFLOW_INFRA_DIR\n'
+        'KUBEFLOW_K8S_MANIFESTS_DIR=$KUBEFLOW_K8S_MANIFESTS_DIR\n')
       FORMAT+=('$AWS_CLUSTER_NAME'
-               '$AWS_REGION'
-               '$AWS_NODEGROUP_ROLE_NAMES'
-               '$KUBEFLOW_INFRA_DIR'
-               '$KUBEFLOW_K8S_MANIFESTS_DIR')
+        '$AWS_REGION'
+        '$AWS_NODEGROUP_ROLE_NAMES'
+        '$KUBEFLOW_INFRA_DIR'
+        '$KUBEFLOW_K8S_MANIFESTS_DIR')
       export AWS_CLUSTER_NAME=${AWS_CLUSTER_NAME:-""}
       export AWS_REGION=${AWS_REGION:-""}
       export AWS_NODEGROUP_ROLE_NAMES=${AWS_NODEGROUP_ROLE_NAMES:-""}
@@ -129,17 +129,17 @@ createEnv() {
     azure)
       export KUBEFLOW_PLATFORM=azure
       INPUT+=('AZ_CLIENT_ID=$AZ_CLIENT_ID\n'
-              'AZ_CLIENT_SECRET=$AZ_CLIENT_SECRET\n'
-              'AZ_TENANT_ID=$AZ_TENANT_ID\n'
-              'AZ_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID\n'
-              'AZ_LOCATION=$AZ_LOCATION\n'
-              'AZ_NODE_SIZE=$AZ_NODE_SIZE\n')
+        'AZ_CLIENT_SECRET=$AZ_CLIENT_SECRET\n'
+        'AZ_TENANT_ID=$AZ_TENANT_ID\n'
+        'AZ_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID\n'
+        'AZ_LOCATION=$AZ_LOCATION\n'
+        'AZ_NODE_SIZE=$AZ_NODE_SIZE\n')
       FORMAT+=('$AZ_CLIENT_ID'
-               '$AZ_CLIENT_SECRET'
-               '$AZ_TENANT_ID'
-               '$AZ_SUBSCRIPTION_ID'
-               '$AZ_LOCATION'
-               '$AZ_NODE_SIZE')
+        '$AZ_CLIENT_SECRET'
+        '$AZ_TENANT_ID'
+        '$AZ_SUBSCRIPTION_ID'
+        '$AZ_LOCATION'
+        '$AZ_NODE_SIZE')
 
       export AZ_CLIENT_ID=${AZ_CLIENT_ID}
       export AZ_CLIENT_SECRET=${AZ_CLIENT_SECRET}
@@ -150,30 +150,30 @@ createEnv() {
       ;;
     gcp)
       INPUT+=('PROJECT=$PROJECT\n'
-              'ZONE=$ZONE\n'
-              'EMAIL=$EMAIL\n'
-              'PROJECT_NUMBER=$PROJECT_NUMBER\n'
-              'KUBEFLOW_DM_DIR=$KUBEFLOW_DM_DIR\n'
-              'KUBEFLOW_SECRETS_DIR=$KUBEFLOW_SECRETS_DIR\n'
-              'KUBEFLOW_K8S_MANIFESTS_DIR=$KUBEFLOW_K8S_MANIFESTS_DIR\n'
-              'KUBEFLOW_K8S_CONTEXT=$KUBEFLOW_K8S_CONTEXT\n'
-              'KUBEFLOW_IP_NAME=$KUBEFLOW_IP_NAME\n'
-              'KUBEFLOW_ENDPOINT_NAME=$KUBEFLOW_ENDPOINT_NAME\n'
-              'KUBEFLOW_HOSTNAME=$KUBEFLOW_HOSTNAME\n'
-              'CONFIG_FILE=$CONFIG_FILE\n'
-              'GKE_API_VERSION=$GKE_API_VERSION\n')
+        'ZONE=$ZONE\n'
+        'EMAIL=$EMAIL\n'
+        'PROJECT_NUMBER=$PROJECT_NUMBER\n'
+        'KUBEFLOW_DM_DIR=$KUBEFLOW_DM_DIR\n'
+        'KUBEFLOW_SECRETS_DIR=$KUBEFLOW_SECRETS_DIR\n'
+        'KUBEFLOW_K8S_MANIFESTS_DIR=$KUBEFLOW_K8S_MANIFESTS_DIR\n'
+        'KUBEFLOW_K8S_CONTEXT=$KUBEFLOW_K8S_CONTEXT\n'
+        'KUBEFLOW_IP_NAME=$KUBEFLOW_IP_NAME\n'
+        'KUBEFLOW_ENDPOINT_NAME=$KUBEFLOW_ENDPOINT_NAME\n'
+        'KUBEFLOW_HOSTNAME=$KUBEFLOW_HOSTNAME\n'
+        'CONFIG_FILE=$CONFIG_FILE\n'
+        'GKE_API_VERSION=$GKE_API_VERSION\n')
       FORMAT+=('$PROJECT'
-               '$ZONE'
-               '$EMAIL'
-               '$PROJECT_NUMBER'
-               '$KUBEFLOW_DM_DIR'
-               '$KUBEFLOW_SECRETS_DIR'
-               '$KUBEFLOW_K8S_MANIFESTS_DIR'
-               '$KUBEFLOW_K8S_CONTEXT'
-               '$KUBEFLOW_IP_NAME'
-               '$KUBEFLOW_ENDPOINT_NAME'
-               '$KUBEFLOW_HOSTNAME'
-               '$CONFIG_FILE$GKE_API_VERSION')
+        '$ZONE'
+        '$EMAIL'
+        '$PROJECT_NUMBER'
+        '$KUBEFLOW_DM_DIR'
+        '$KUBEFLOW_SECRETS_DIR'
+        '$KUBEFLOW_K8S_MANIFESTS_DIR'
+        '$KUBEFLOW_K8S_CONTEXT'
+        '$KUBEFLOW_IP_NAME'
+        '$KUBEFLOW_ENDPOINT_NAME'
+        '$KUBEFLOW_HOSTNAME'
+        '$CONFIG_FILE$GKE_API_VERSION')
 
       export KUBEFLOW_PLATFORM=gke
       export PROJECT="${PROJECT}"
@@ -336,7 +336,7 @@ parseArgs() {
   if [[ "${PLATFORM}" == "gcp" ]]; then
     # GCP Project
     if [[ -z "${PROJECT}" ]]; then
-      PROJECT=$(gcloud config get-value project 2>/dev/null)
+      PROJECT=$(gcloud config get-value project 2> /dev/null)
       if [[ -z "${PROJECT}" ]]; then
         echo "GCP project must be set either using --project <PROJECT>"
         echo "or by setting a default project in gcloud config"
@@ -345,7 +345,7 @@ parseArgs() {
     fi
     # GCP Zone
     if [[ -z "$ZONE" ]]; then
-      export ZONE=$(gcloud config get-value compute/zone 2>/dev/null)
+      export ZONE=$(gcloud config get-value compute/zone 2> /dev/null)
       if [[ -z "$ZONE" ]]; then
         echo "Set default zone to ${GCP_DEFAULT_ZONE}"
         echo "You can override this by setting a default zone in gcloud config"
@@ -355,7 +355,7 @@ parseArgs() {
     fi
     # GCP Email for cert manager
     if [[ -z "$EMAIL" ]]; then
-      EMAIL=$(gcloud config get-value account 2>/dev/null)
+      EMAIL=$(gcloud config get-value account 2> /dev/null)
       if [[ -z "$EMAIL" ]]; then
         echo "GCP account must be set either using --email <EMAIL>"
         echo "or by setting a default account in gcloud config"
@@ -405,7 +405,7 @@ main() {
       echo "Name ${DEPLOYMENT_NAME} should not be longer than 25 characters"
       exit 1
     fi
-    if [[ ${DEPLOYMENT_NAME} == *.*  ]]; then
+    if [[ ${DEPLOYMENT_NAME} == *.* ]]; then
       echo "Name should not contain '.'"
       exit 1
     fi
@@ -413,7 +413,7 @@ main() {
       echo "Directory ${DEPLOYMENT_NAME} already exists"
       exit 1
     fi
-    if [[ ${DEPLOYMENT_NAME} =~ _  ]]; then
+    if [[ ${DEPLOYMENT_NAME} =~ _ ]]; then
       echo "Name should not contain '_'"
       exit 1
     fi
@@ -489,8 +489,8 @@ main() {
       fi
     fi
     if [[ "${PLATFORM}" == "azure" ]]; then
-        echo "generate for Azure"
-        createAKSCluster
+      echo "generate for Azure"
+      createAKSCluster
     fi
 
     if [[ "${PLATFORM}" == "aws" ]]; then
@@ -568,28 +568,28 @@ main() {
       # Delete kubeflow namespace - this deletes all the ingress objects
       # in the namespace which deletes the associated GCP resources
       if [[ "$OSTYPE" != "darwin"* ]]; then
-          # Fetch master information and strip away color markers
-          KUBE_INFO=$(kubectl cluster-info | sed 's/\x1B\[[0-9;]\+[A-Za-z]//g')
-          pushd ${KUBEFLOW_KS_DIR}
-          KS_ENV=default
-          KS_ENV_INFO=$(ks env describe ${KS_ENV})
-          popd
-          KS_MASTER=`expr match "${KS_ENV_INFO}" '.*server[^\.0-9]*\([\.0-9]\+\)'`
-          echo KS_MASTER=${KS_MASTER}
-          MASTER=`expr match "${KUBE_INFO}" '[^\.0-9]*\([\.0-9]\+\)'`
-          echo MASTER=${MASTER}
+        # Fetch master information and strip away color markers
+        KUBE_INFO=$(kubectl cluster-info | sed 's/\x1B\[[0-9;]\+[A-Za-z]//g')
+        pushd ${KUBEFLOW_KS_DIR}
+        KS_ENV=default
+        KS_ENV_INFO=$(ks env describe ${KS_ENV})
+        popd
+        KS_MASTER=$(expr match "${KS_ENV_INFO}" '.*server[^\.0-9]*\([\.0-9]\+\)')
+        echo KS_MASTER=${KS_MASTER}
+        MASTER=$(expr match "${KUBE_INFO}" '[^\.0-9]*\([\.0-9]\+\)')
+        echo MASTER=${MASTER}
 
-          if [[ "${MASTER}" != "${KS_MASTER}" ]]; then
-            echo "The current kubectl context doesn't match the ks environment"
-            echo "Please configure the context to match ks environment ${KS_ENV}"
-            exit -1
-          else
-            echo "kubectl context matches ks environment ${KS_ENV}"
-          fi
+        if [[ "${MASTER}" != "${KS_MASTER}" ]]; then
+          echo "The current kubectl context doesn't match the ks environment"
+          echo "Please configure the context to match ks environment ${KS_ENV}"
+          exit -1
+        else
+          echo "kubectl context matches ks environment ${KS_ENV}"
+        fi
       fi
       set +e
       pushd ${KUBEFLOW_KS_DIR}
-      appname=$(ks param list application | grep '^application name'|awk '{print $NF}'|tr -d "'")
+      appname=$(ks param list application | grep '^application name' | awk '{print $NF}' | tr -d "'")
       popd
       if [[ "${PLATFORM}" == "aws" ]]; then
         # Ingress are created by controller, need to clean it up before ingress controller deleted
@@ -626,7 +626,7 @@ main() {
         echo "namespace ${K8S_NAMESPACE} not yet deleted. sleeping 10 seconds..."
         # wait for 100s at most
         # https://github.com/kubeflow/kubeflow/issues/2408
-        ((c++)) && ((c==10)) && break
+        ((c++)) && ((c == 10)) && break
         sleep 10
       done
       if kubectl get ns/${K8S_NAMESPACE}; then
@@ -655,7 +655,6 @@ main() {
     fi
   fi
 }
-
 
 # If less than 2 command line options are provided exit early and print usage
 if [[ $# -lt 2 ]]; then

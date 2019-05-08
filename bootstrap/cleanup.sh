@@ -6,7 +6,7 @@ if [[ $# == "0" ]]; then
 fi
 
 namespace=$1
-kubectl get ns|grep kubeflow-admin 1>/dev/null
+kubectl get ns | grep kubeflow-admin 1> /dev/null
 if [[ $? == "0" ]]; then
   can_i=$(kubectl auth can-i delete namespace)
   case "$can_i" in

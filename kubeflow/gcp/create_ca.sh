@@ -3,7 +3,7 @@
 set -e
 
 usage() {
-    cat <<EOF
+  cat << EOF
 Generate certificate suitable for use with an sidecar-injector webhook service.
 This script uses k8s' CertificateSigningRequest API to a generate a
 certificate signed by k8s CA suitable for use with sidecar-injector webhook
@@ -17,28 +17,28 @@ The following flags are required.
        --namespace        Namespace where webhook service and secret reside.
        --secret           Secret name for CA certificate and server certificate/key pair.
 EOF
-    exit 1
+  exit 1
 }
 
 while [[ $# -gt 0 ]]; do
-    case ${1} in
-        --service)
-            service="$2"
-            shift
-            ;;
-        --secret)
-            secret="$2"
-            shift
-            ;;
-        --namespace)
-            namespace="$2"
-            shift
-            ;;
-        *)
-            usage
-            ;;
-    esac
-    shift
+  case ${1} in
+    --service)
+      service="$2"
+      shift
+      ;;
+    --secret)
+      secret="$2"
+      shift
+      ;;
+    --namespace)
+      namespace="$2"
+      shift
+      ;;
+    *)
+      usage
+      ;;
+  esac
+  shift
 done
 
 [ -z ${service} ] && service=gcp-cred-webhook
@@ -51,8 +51,8 @@ echo ${namespace}
 echo ${secret}
 
 if [ ! -x "$(command -v openssl)" ]; then
-    echo "openssl not found"
-    exit 1
+  echo "openssl not found"
+  exit 1
 fi
 
 csrName=${service}.${namespace}
@@ -62,7 +62,7 @@ echo "creating certs in tmpdir ${tmpdir} "
 # x509 outputs a self signed certificate instead of certificate request, later used as self signed root CA
 openssl req -x509 -newkey rsa:2048 -keyout ${tmpdir}/self_ca.key -out ${tmpdir}/self_ca.crt -days 365 -nodes -subj /C=/ST=/L=/O=/OU=/CN=test-certificate-authority
 
-cat <<EOF >> ${tmpdir}/csr.conf
+cat << EOF >> ${tmpdir}/csr.conf
 [req]
 req_extensions = v3_req
 distinguished_name = req_distinguished_name
@@ -86,18 +86,18 @@ openssl x509 -req -days 365 -in ${tmpdir}/server.csr -CA ${tmpdir}/self_ca.crt -
 
 # create the secret with CA cert and server cert/key
 kubectl create secret generic ${secret} \
-        --from-file=key.pem=${tmpdir}/server-key.pem \
-        --from-file=cert.pem=${tmpdir}/server-cert.pem \
-        --dry-run -o yaml |
-    kubectl -n ${namespace} apply -f -
+  --from-file=key.pem=${tmpdir}/server-key.pem \
+  --from-file=cert.pem=${tmpdir}/server-cert.pem \
+  --dry-run -o yaml |
+  kubectl -n ${namespace} apply -f -
 
 cat ${tmpdir}/self_ca.crt
 # -a means base64 encode
-caBundle=`cat ${tmpdir}/self_ca.crt | openssl enc -a -A`
+caBundle=$(cat ${tmpdir}/self_ca.crt | openssl enc -a -A)
 echo ${caBundle}
 
 patchString='[{"op": "replace", "path": "/webhooks/0/clientConfig/caBundle", "value":"{{CA_BUNDLE}}"}]'
-patchString=`echo ${patchString} | sed "s|{{CA_BUNDLE}}|${caBundle}|g"`
+patchString=$(echo ${patchString} | sed "s|{{CA_BUNDLE}}|${caBundle}|g")
 echo ${patchString}
 
 checkWebhookConfig() {
@@ -109,7 +109,7 @@ while true; do
   if ! checkWebhookConfig; then
     echo "patching ca bundle for webhook configuration..."
     kubectl patch mutatingwebhookconfiguration gcp-cred-webhook \
-        --type='json' -p="${patchString}"
+      --type='json' -p="${patchString}"
   fi
   sleep 10
 done

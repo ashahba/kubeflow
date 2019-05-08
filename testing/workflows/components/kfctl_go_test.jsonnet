@@ -92,7 +92,7 @@ local buildTemplate(step_name, command, working_dir=null, env_vars=[], sidecars=
     image: image,
     workingDir: working_dir,
     // TODO(jlewi): Change to IfNotPresent.
-    imagePullPolicy: "Always",    
+    imagePullPolicy: "Always",
     env: [
       {
         // Add the source directories to the python path.
@@ -217,7 +217,7 @@ local dagTemplates = [
   {
     template: buildTemplate(
       "kfctl-build-deploy",
-      [        
+      [
         "pytest",
         "kfctl_go_test.py",
         // I think -s mean stdout/stderr will print out to aid in debugging.
@@ -226,10 +226,10 @@ local dagTemplates = [
         "--use_basic_auth=" + params.useBasicAuth,
         "--use_istio=" + params.useIstio,
         // Increase the log level so that info level log statements show up.
-        "--log-cli-level=info",        
+        "--log-cli-level=info",
         "--junitxml=" + artifactsDir + "/junit_kfctl-build-test" + nameSuffix + ".xml",
         // Test suite name needs to be unique based on parameters
-        "-o", "junit_suite_name=test_kgctl_go_deploy_" + nameSuffix, 
+        "-o", "junit_suite_name=test_kgctl_go_deploy_" + nameSuffix,
         "--app_path=" + appDir,
       ],
       working_dir=srcDir+ "/testing/kfctl",
@@ -240,7 +240,7 @@ local dagTemplates = [
   {
     template: buildTemplate(
       "kfctl-is-ready",
-      [        
+      [
         "pytest",
         "kf_is_ready_test.py",
         // I think -s mean stdout/stderr will print out to aid in debugging.
@@ -252,7 +252,7 @@ local dagTemplates = [
         "--log-cli-level=info",
         "--junitxml=" + artifactsDir + "/junit_kfctl-is-ready-test-" + nameSuffix + ".xml",
         // Test suite name needs to be unique based on parameters
-        "-o", "junit_suite_name=test_kf_is_ready_" + nameSuffix,         
+        "-o", "junit_suite_name=test_kf_is_ready_" + nameSuffix,
         "--app_path=" + appDir,
       ],
       working_dir=srcDir+ "/testing/kfctl",
@@ -359,7 +359,6 @@ local stepTemplates = std.map(function(i) i.template
                               , dagTemplates)  +
                       std.map(function(i) i.template
                               , exitTemplates);
-
 
 // Add a task to a dag.
 local workflow = {

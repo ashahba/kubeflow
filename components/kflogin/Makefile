@@ -15,7 +15,6 @@
 PROJECT ?= kubeflow-images-public
 IMG = gcr.io/$(PROJECT)/kflogin-ui
 
-
 CHANGED_FILES := $(shell git diff-files)
 
 ifeq ($(strip $(CHANGED_FILES)),)
@@ -37,7 +36,6 @@ build:
 	docker tag $(IMG):$(TAG) $(IMG):latest
 	@echo Built $(IMG):latest
 	@echo Built $(IMG):$(TAG)
-
 
 # Build but don't attach the latest tag. This allows manual testing/inspection of the image
 # first.

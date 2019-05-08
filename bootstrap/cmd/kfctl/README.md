@@ -39,7 +39,7 @@ Note: This README.md will be updated on an ongoing basis to reflect features, bu
  - Separate different platform implementations of the [KfApp Interface](#kfapp-interface).
 
  - Separate different package manager implementations of the [KfApp Interface](#kfapp-interface).
- 
+
  - Allow new platforms to be added to kfctl without rebuilding or reshipping kfctl (see [Extending kfctl](#extending-kfctl) below).
 
  - Do not change existing `REST` entrypoints or the `KsService` interface in `ksServer.go` at this time.
@@ -63,7 +63,7 @@ const (
 
 //
 // KfApp is used by commands under bootstrap/cmd/{bootstrap,kfctl}. KfApp provides a common
-// API for different platforms implementations like gcp and minikube. 
+// API for different platforms implementations like gcp and minikube.
 // KfApp is also implemented by different package managers (ksonnet, kustomize).
 //
 type KfApp interface {
@@ -74,12 +74,12 @@ type KfApp interface {
 }
 ```
 
-kfctl will statically include platforms that implement the KfApp interface. 
+kfctl will statically include platforms that implement the KfApp interface.
 These include:
 
 - platform: **minikube**
   - bootstrap/pkg/client/minikube/minikube.go
-- platform: **gcp** 
+- platform: **gcp**
   - bootstrap/pkg/client/gcp/gcp.go
 
 kfctl also statically links package managers that are used by the platforms
@@ -87,19 +87,19 @@ These include:
 
 - package manager: **ksonnet**
   - bootstrap/pkg/client/ksonnet/ksonnet.go
-- package manager: **kustomize** 
+- package manager: **kustomize**
   - bootstrap/v2/pkg/client/kustomize/kustomize.go
 
-kfctl can dynamically load platforms and package managers that are not statically linked, as 
+kfctl can dynamically load platforms and package managers that are not statically linked, as
 described below in [Extending kfctl](#extending-kfctl).
 
 ## Usage
 
 ```kubeflow client tool
-   
+
    Usage:
      kfctl [command]
-   
+
    Available Commands:
      apply       Deploy a generated kubeflow application.
      delete      Delete a kubeflow application.
@@ -108,10 +108,10 @@ described below in [Extending kfctl](#extending-kfctl).
      init        Create a kubeflow application under <[path/]name>
      show        Deploy a generated kubeflow application.
      version     Prints the version of kfctl.
-   
+
    Flags:
      -h, --help   help for kfctl
-   
+
    Use "kfctl [command] --help" for more information about a command.
 ```
 
@@ -126,7 +126,7 @@ kfctl apply all
 
 ## Subcommands
 
-### **init** 
+### **init**
 
 (kubeflow/bootstrap/cmd/kfctl/cmd/init.go)
 
@@ -173,7 +173,7 @@ Flags:
       --zone string       zone if '--platform gcp' (default "us-east1-d")```
 ```
 
-### **apply** 
+### **apply**
 
 (kubeflow/bootstrap/cmd/kfctl/cmd/apply.go)
 
@@ -189,7 +189,7 @@ Flags:
       --oauth_secret string   OAuth Client ID, GCP only. Required if ENV CLIENT_SECRET is not set. Value passed will take precedence to ENV.
   -V, --verbose               verbose output default is false```
 
-### **delete** 
+### **delete**
 
 (kubeflow/bootstrap/cmd/kfctl/cmd/delete.go)
 
@@ -241,19 +241,19 @@ make build-dockerfordesktop-plugin
 make test-kfctl
 ```
 
-### Testing `kfctl init` for all platforms 
+### Testing `kfctl init` for all platforms
 
 ```
 make test-init
 ```
 
-### Testing `kfctl generate` for all platforms 
+### Testing `kfctl generate` for all platforms
 
 ```
 make test-generate
 ```
 
-#### app.yaml example for --platform gcp 
+#### app.yaml example for --platform gcp
 
 ```
 apiVersion: client.apps.kubeflow.org/v1alpha1
@@ -346,7 +346,7 @@ Ksonnet types have been moved to `github.com/kubeflow/kubeflow/bootstrap/pkg/api
 
 Both ksonnet and kustomize package managers are loaded as .so's.
 (They will be statically linked soon see [#2635](https://github.com/kubeflow/kubeflow/issues/2635))
-The complication is that ksonnet and kustomize do not have an overlap of kubernetes versions as well 
+The complication is that ksonnet and kustomize do not have an overlap of kubernetes versions as well
 as client-go, and controller-runtime.
 
 - **ksonnet** (highest version)
@@ -361,17 +361,17 @@ as client-go, and controller-runtime.
   - k8s.io/client-go v10.0.0
   - sigs.k8s.io/controller-runtime v0.1.10
 
-kustomize leverages golang modules by using 'v2' versions of 
+kustomize leverages golang modules by using 'v2' versions of
 the above libraries.
 
 We insert golang package versioning for these libraries despite the fact that kubernetes has yet to move to golang modules. Updating these libraries to use golang modules is straight-forward and can be done using local git clones. Background information on how this is done can be found [here](https://github.com/golang/go/wiki/Modules#releasing-modules-v2-or-higher).
 
 Currently a build artifact was hand built and checked into PR #2548 as bootstrap/hack/v2.zip.
-This build artifact holds versioned packages for the above libraries. This hand-built artifact needs to be removed and replaced with a golang tool such as [mod](https://github.com/marwan-at-work/mod) that can do this algorithmically and as part of building kfctl.  
+This build artifact holds versioned packages for the above libraries. This hand-built artifact needs to be removed and replaced with a golang tool such as [mod](https://github.com/marwan-at-work/mod) that can do this algorithmically and as part of building kfctl.
 
 The  [mod](https://github.com/marwan-at-work/mod) tool needs to be modified in the following ways:
 1. Update literal references to versioned packages as found [here](https://github.com/kubernetes/api/blob/kubernetes-1.13.4/apps/v1/generated.pb.go#L62) and [here](https://github.com/kubernetes/api/blob/kubernetes-1.13.4/apps/v1/generated.pb.go#L63).
 2. Move a subset of libraries tagged as [+incompatible](https://groups.google.com/forum/#!topic/golang-codereviews/t-xcPhCn3FI) within the go.mod file, instead of all of them.
-3. Create a local archive of these versioned packages 
-4. Update go.mod files that reference the versioned packages with a replace directive pointing to the the local archive location. 
+3. Create a local archive of these versioned packages
+4. Update go.mod files that reference the versioned packages with a replace directive pointing to the the local archive location.
 5. Do not update the git repos or push changes back to git

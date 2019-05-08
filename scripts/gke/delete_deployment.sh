@@ -11,7 +11,7 @@ set -x
 
 set -x
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)"
 
 parseArgs() {
   # Parse all command line options
@@ -25,9 +25,9 @@ parseArgs() {
 
       eval ${name}="${value}"
     elif [[ $1 =~ ^--(.*)$ ]]; then
-    name=${BASH_REMATCH[1]}
-    value=true
-    eval ${name}="${value}"
+      name=${BASH_REMATCH[1]}
+      value=true
+      eval ${name}="${value}"
     else
       echo "Argument $1 did not match the pattern --{name}={value} or --{name}"
     fi
@@ -35,14 +35,13 @@ parseArgs() {
   done
 }
 
-
 usage() {
   echo "Usage: delete_deployment --project=PROJECT --deployment=DEPLOYMENT_NAME --zone=ZONE"
 }
 
 main() {
 
- cd "${DIR}"
+  cd "${DIR}"
 
   # List of required parameters
   names=(project deployment zone)
@@ -60,42 +59,41 @@ main() {
     exit 1
   fi
 
-gcloud deployment-manager --project=${project} deployments delete ${deployment} \
---quiet
+  gcloud deployment-manager --project=${project} deployments delete ${deployment} \
+    --quiet
 
-RESULT=$?
+  RESULT=$?
 
-if [ ${RESULT} -ne 0 ]; then
-  echo deleting the deployment did not work retry with abandon
-  gcloud deployment-manager --project=${project} deployments delete \
-  ${deployment} \
-  --quiet \
-  --delete-policy=abandon
+  if [ ${RESULT} -ne 0 ]; then
+    echo deleting the deployment did not work retry with abandon
+    gcloud deployment-manager --project=${project} deployments delete \
+      ${deployment} \
+      --quiet \
+      --delete-policy=abandon
 
-fi
+  fi
 
-# Ensure resources are deleted.
+  # Ensure resources are deleted.
 
-gcloud --project=${project} container clusters delete --zone=${zone} \
-  ${deployment} --quiet
+  gcloud --project=${project} container clusters delete --zone=${zone} \
+    ${deployment} --quiet
 
-# Delete service accounts and all role bindings for the service accounts
-declare -a accounts=("vm" "admin" "user")
+  # Delete service accounts and all role bindings for the service accounts
+  declare -a accounts=("vm" "admin" "user")
 
-# now loop through the above array
-for suffix in "${accounts[@]}";
-do
-   # Delete all role bindings.
-   SA=${deployment}-${suffix}@${project}.iam.gserviceaccount.com
-   python delete_role_bindings.py --project=${project} --service_account=${SA}
-   gcloud --project=${project} iam service-accounts delete \
-  ${SA} \
-  --quiet
-done
+  # now loop through the above array
+  for suffix in "${accounts[@]}"; do
+    # Delete all role bindings.
+    SA=${deployment}-${suffix}@${project}.iam.gserviceaccount.com
+    python delete_role_bindings.py --project=${project} --service_account=${SA}
+    gcloud --project=${project} iam service-accounts delete \
+      ${SA} \
+      --quiet
+  done
 
-# Exit with status zero.
-exit 0
-# TODO(jlewi): Should we cleanup ingress , loadbalancer, etc...?
+  # Exit with status zero.
+  exit 0
+  # TODO(jlewi): Should we cleanup ingress , loadbalancer, etc...?
 }
 
 parseArgs $*

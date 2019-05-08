@@ -1,6 +1,6 @@
 #**********************************************************************
 # Builder
-# 
+#
 # Create a go runtime suitable for building and testing kfctl
 ARG GOLANG_VERSION=1.12
 FROM golang:$GOLANG_VERSION as builder
@@ -26,7 +26,7 @@ ENV GO111MODULE=on
 #**********************************************************************
 # Bootstrap base
 #
-# A container that builds bootstrap. 
+# A container that builds bootstrap.
 #
 # TODO(https://github.com/kubeflow/kubeflow/issues/2870): We
 # might get rid of the bootstrap binary and instead just have kfctl
@@ -57,7 +57,7 @@ RUN apt-get install unzip
 WORKDIR ${GOPATH}/src/github.com/kubeflow/kubeflow/bootstrap
 
 # TODO(jlewi): Why are these commands being run as part of the Dockerfile? Why aren't they part of Make?
-RUN GO111MODULE=off GOPATH=${GOPATH} go get k8s.io/code-generator/cmd/deepcopy-gen 
+RUN GO111MODULE=off GOPATH=${GOPATH} go get k8s.io/code-generator/cmd/deepcopy-gen
 RUN ${GOPATH}/bin/deepcopy-gen -i github.com/kubeflow/kubeflow/bootstrap/config/... -O zz_generated.deepcopy
 RUN ${GOPATH}/bin/deepcopy-gen -i github.com/kubeflow/kubeflow/bootstrap/pkg/apis/apps/kfdef/... -O zz_generated.deepcopy
 RUN ${GOPATH}/bin/deepcopy-gen -i github.com/kubeflow/kubeflow/bootstrap/v2/pkg/apis/apps/kfdef/... -O zz_generated.deepcopy
@@ -100,7 +100,6 @@ RUN mkdir -p /opt/kubeflow
 WORKDIR /opt/kubeflow
 
 EXPOSE 8080
-
 
 # Set default values for USER, USER_ID, GROUP_ID
 # The startup script will create the user and su to that user.

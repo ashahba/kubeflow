@@ -9,27 +9,27 @@
 
 set -xe
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null && pwd)"
 
 parseArgs() {
   # Parse all command line options
   while [[ $# -gt 0 ]]; do
-	# Parameters should be of the form
-	# --{name}=${value}
-	echo parsing "$1"
-	if [[ $1 =~ ^--(.*)=(.*)$ ]]; then
-	  name=${BASH_REMATCH[1]}
-	  value=${BASH_REMATCH[2]}
+    # Parameters should be of the form
+    # --{name}=${value}
+    echo parsing "$1"
+    if [[ $1 =~ ^--(.*)=(.*)$ ]]; then
+      name=${BASH_REMATCH[1]}
+      value=${BASH_REMATCH[2]}
 
-	  eval ${name}="${value}"
-	elif [[ $1 =~ ^--(.*)$ ]]; then
-	name=${BASH_REMATCH[1]}
-	value=true
-	eval ${name}="${value}"
-	else
-	  echo "Argument $1 did not match the pattern --{name}={value} or --{name}"
-	fi
-	shift
+      eval ${name}="${value}"
+    elif [[ $1 =~ ^--(.*)$ ]]; then
+      name=${BASH_REMATCH[1]}
+      value=true
+      eval ${name}="${value}"
+    else
+      echo "Argument $1 did not match the pattern --{name}={value} or --{name}"
+    fi
+    shift
   done
 }
 
@@ -38,17 +38,17 @@ usage() {
 }
 
 main() {
-	# List of required parameters
+  # List of required parameters
   names=(registry)
 
   missingParam=false
   for i in ${names[@]}; do
-	if [ -z ${!i} ]; then
-	  echo "--${i} not set"
-	  missingParam=true
-	fi
+    if [ -z ${!i} ]; then
+      echo "--${i} not set"
+      missingParam=true
+    fi
   done
-	
+
   if ks component list | awk '{print $1}' | grep -q "^argo$"; then
     ks param set argo workflowControllerImage ${registry}/workflow-controller:v2.2.0
     ks param set argo uiImage ${registry}/argoui:v2.2.0
@@ -68,7 +68,7 @@ main() {
   fi
 
   if ks component list | awk '{print $1}' | grep -q "^iap$"; then
-    ks param set iap-ingress  ${registry}/cloud-solutions-group/esp-sample-app:1.0.0
+    ks param set iap-ingress ${registry}/cloud-solutions-group/esp-sample-app:1.0.0
   fi
 
   if ks component list | awk '{print $1}' | grep -q "^metacontroller$"; then

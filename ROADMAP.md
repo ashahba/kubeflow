@@ -21,11 +21,9 @@ We are working diligently to get Kubeflow to its first major version release 1.0
 * We expect to start graduating some components in the second half of 2019
 * Once we have a set of graduated applications covering core CUJ's for Kubeflow we will graduate Kubeflow to 1.0
 
-
 We are working on defining criterion for graduating applications. Here are some areas we think are important
 
-
-*   Stabilized APIs   
+*   Stabilized APIs
 *   Robust support for monitoring and logging.
 *   Scale and load testing.
 
@@ -66,18 +64,15 @@ Continue to improve development experience for Data Scientists and ML Practition
 *   Minimize the need for switching contexts out of the notebook / development environment for launching / tracking jobs.
 *   Provide a seamless experience for local development connected with cloud/on-prem execution environment.
 
-
 ## Advanced ML Platform
 
 Continue to build and incorporate additional components enabling advanced ML workflows.
-
 
 *   Katib integration to work with TFJob or PyTorch operators for hyperparameter tuning [kubeflow/katib#39](https://github.com/kubeflow/katib/issues/39).
 *   Make all new and updated TFX components available.
 *   Feature engineering and feature management support.
 *   Model management and deployment support.
 	* [Issues](https://github.com/issues?utf8=%E2%9C%93&q=org%3Akubeflow+label%3Aarea%2Fmodel-management)
-
 
 ## Test Release Infrastructure
 

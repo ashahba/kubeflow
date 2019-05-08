@@ -50,7 +50,7 @@ local jobVersion = "v1beta1";
 local args_param = params.args;
 local command = params.command;
 
-local cmd = 
+local cmd =
   if command == "null" then []
   else std.split(command, ",");
 local args =

@@ -21,10 +21,10 @@ BOOTSTRAPPER_IMG ?= gcr.io/$(GCLOUD_PROJECT)/bootstrapper
 KFCTL_IMG ?= gcr.io/$(GCLOUD_PROJECT)/kfctl
 TAG ?= $(eval TAG := $(shell git describe --tags --long))$(TAG)
 KFCTL_TARGET ?= kfctl
-MOUNT_KUBE ?=  -v $(HOME)/.kube:/root/.kube 
-MOUNT_GCP ?=  -v $(HOME)/.config:/root/.config 
+MOUNT_KUBE ?=  -v $(HOME)/.kube:/root/.kube
+MOUNT_GCP ?=  -v $(HOME)/.config:/root/.config
 # set to -V
-VERBOSE ?= 
+VERBOSE ?=
 PLUGINS_ENVIRONMENT ?= $(GOPATH)/src/github.com/kubeflow/kubeflow/bootstrap/bin
 export GO111MODULE = on
 export GO = go
@@ -82,7 +82,7 @@ pkg/apis/apps/kfdef/v1alpha1/zz_generated.deepcopy.go: pkg/apis/apps/kfdef/v1alp
 v2/pkg/apis/apps/kfdef/v1alpha1/zz_generated.deepcopy.go: v2/pkg/apis/apps/kfdef/v1alpha1/application_types.go
 	${GOPATH}/bin/deepcopy-gen -i github.com/kubeflow/kubeflow/bootstrap/v2/pkg/apis/apps/kfdef/... -O zz_generated.deepcopy
 
-deepcopy: ${GOPATH}/bin/deepcopy-gen config/zz_generated.deepcopy.go pkg/apis/apps/kfdef/v1alpha1/zz_generated.deepcopy.go v2/pkg/apis/apps/kfdef/v1alpha1/zz_generated.deepcopy.go 
+deepcopy: ${GOPATH}/bin/deepcopy-gen config/zz_generated.deepcopy.go pkg/apis/apps/kfdef/v1alpha1/zz_generated.deepcopy.go v2/pkg/apis/apps/kfdef/v1alpha1/zz_generated.deepcopy.go
 
 build-bootstrap: /tmp/v2 deepcopy generate fmt vet
 	${GO} build -gcflags 'all=-N -l' -o bin/bootstrapper cmd/bootstrap/main.go
@@ -111,7 +111,7 @@ push-to-github-release: build-kfctl-tgz
 	    --tag $(TAG) \
 	    --name "kfctl_$(TAG)_darwin.tar.gz" \
 	    --file bin/kfctl_$(TAG)_darwin.tar.gz
-	 
+
 build-kfctl-container:
 	docker build \
 		--build-arg GOLANG_VERSION=$(GOLANG_VERSION) \
@@ -199,19 +199,17 @@ build-builder-container-gcb:
 
 #***************************************************************************************************
 
-clean: 
+clean:
 	rm -rf test && rm -rf /tmp/v2 && mkdir test
 
 doc:
 	doctoc ./cmd/kfctl/README.md README.md k8sSpec/README.md developer_guide.md
-
 
 #**************************************************************************************************
 # rules to run unittests
 #
 test: build-kfctl
 	go test ./...
-
 
 # Run the unittests and output a junit report for use with prow
 test-junit: build-kfctl

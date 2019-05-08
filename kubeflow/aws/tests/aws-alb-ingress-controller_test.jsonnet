@@ -11,7 +11,6 @@ local env = {
     namespace: "kubeflow",
 };
 
-
 local instance = albIngressController.new(env, params);
 
 local testCases = [

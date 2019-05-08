@@ -44,7 +44,7 @@ func processResourceArg(args []string) (kftypes.ResourceEnum, error) {
 var rootCmd = &cobra.Command{
 	Use:   "kfctl",
 	Short: "A client CLI to create kubeflow applications",
-	Long: `A client CLI to create kubeflow applications for specific platforms or 'on-prem' 
+	Long: `A client CLI to create kubeflow applications for specific platforms or 'on-prem'
 to an existing k8 cluster.`,
 }
 

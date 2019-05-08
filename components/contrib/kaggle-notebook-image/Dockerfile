@@ -19,7 +19,7 @@ ENV PATH $CONDA_DIR/bin:$PATH
 # Use bash instead of sh
 SHELL ["/bin/bash", "-c"]
 
-# add https support 
+# add https support
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     apt-transport-https locales lsb-release wget
 

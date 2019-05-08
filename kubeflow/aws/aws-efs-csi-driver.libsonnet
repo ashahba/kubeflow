@@ -355,7 +355,6 @@
     },  // csiDefaultStorageClass
     csiDefaultStorageClass:: csiDefaultStorageClass,
 
-
     parts:: self,
     local all = [
       self.csiControllerServiceAccount,

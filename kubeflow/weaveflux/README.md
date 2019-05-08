@@ -14,7 +14,6 @@
 
 We have packaged Weaveworks&#174; Flux as a ksonnet package as to fit with the overall architecture of Kubeflow. We will pick up from the installation guide found [here]("https://github.com/kubeflow/kubeflow#setup").
 
-
 ```
 ks pkg install kubeflow/weaveflux@${VERSION}
 ```
@@ -46,6 +45,5 @@ FLUX_URL=http://`kubectl -n ${NAMESPACE} get svc flux-lb | head -2 | tail -1 | a
 fluxctl list-controllers
 
 ```
-
 
 Once you are good to go, please refer to the [documentation on Weavework&#174; Flux]("https://github.com/weaveworks/flux/blob/master/site/using.md").

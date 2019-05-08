@@ -56,7 +56,7 @@ install_ks_kubectl_minikube() {
   fi
 
   # Installing kubectl if needed
-  if ! kubectl -h 2>&1 >/dev/null; then
+  if ! kubectl -h 2>&1 > /dev/null; then
     echo -e "${YELLOW}Installing kubectl...${NC}"
     if [[ $PLATFORM == $OSX ]]; then
       brew install kubectl
@@ -69,7 +69,7 @@ install_ks_kubectl_minikube() {
         sudo apt-get update
         sudo apt-get install -y kubectl
       elif [[ $DIST_TYPE == "CentOS" ]]; then
-        sudo cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+        sudo cat << EOF > /etc/yum.repos.d/kubernetes.repo
         [kubernetes]
         name=Kubernetes
         baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -85,7 +85,7 @@ EOF
   fi
 
   # Installing minikube if needed
-  if ! minikube -h 2>&1 >/dev/null; then
+  if ! minikube -h 2>&1 > /dev/null; then
     echo -e "${YELLOW}Installing minikube...$NC}"
     if [[ $PLATFORM == $OSX ]]; then
       curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.0/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
@@ -108,7 +108,7 @@ cleanup_and_deploy_minikube() {
 
   # start minikube with desired settings
   $MINIKUBE_CMD
-  if ! minikube status 2>&1 >/dev/null; then
+  if ! minikube status 2>&1 > /dev/null; then
     echo -e "${RED}Unable to start minikube. Please see errors above${NC}"
     return 1
   fi

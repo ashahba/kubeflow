@@ -82,7 +82,6 @@ Additional information about configuration can be found in the
 [Zero to JupyterHub with Kubernetes guide](https://zero-to-jupyterhub.readthedocs.io/en/latest/)
 and the [JupyterHub documentation](https://jupyterhub.readthedocs.io/en/latest/).
 
-
 ## Usage
 
 If you're using the quick-start, the external IP address of the JupyterHub

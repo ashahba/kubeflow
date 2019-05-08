@@ -82,7 +82,6 @@ local buildTemplate(step_name, command, working_dir=null, env_vars=[], sidecars=
   sidecars: sidecars,
 };  // buildTemplate
 
-
 // Create a list of dictionary.c
 // Each item is a dictionary describing one step in the graph.
 local dagTemplates = [
@@ -115,12 +114,12 @@ local dagTemplates = [
       srcDir + "/kubeflow" + "," +
       srcDir + "/testing",
     ]),  // flake8-test
-    
+
     dependencies: ["checkout"],
   },
   {
     // Run the kfctl go unittests
-    template: buildTemplate("go-kfctl-unit-tests", [      
+    template: buildTemplate("go-kfctl-unit-tests", [
       "make",
       "test-junit",
     ], working_dir=srcDir + "/bootstrap",
@@ -134,7 +133,7 @@ local dagTemplates = [
         image: "gcr.io/kubeflow-ci/kfctl/builder:v20190418-v0-30-g5e3bd23d-dirty-73d1fe",
       },
     },  // go-kfctl-unit-tests
-    
+
     dependencies: ["checkout"],
   },
   {
@@ -238,7 +237,6 @@ local stepTemplates = std.map(function(i) i.template
                               , dagTemplates) +
                       std.map(function(i) i.template
                               , exitTemplates);
-
 
 // Add a task to a dag.
 local workflow = {

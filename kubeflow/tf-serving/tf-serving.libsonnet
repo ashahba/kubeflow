@@ -40,7 +40,6 @@
     else
       $.params.defaultGpuImage,
 
-
     // Whether or not to enable s3 parameters
     s3Enable:: false,
 
@@ -79,7 +78,6 @@
     // URL for your s3-compatible endpoint.
     s3Endpoint: "http://s3.us-west-1.amazonaws.com,",
   } + $.params,
-
 
   components:: {
 
@@ -212,7 +210,6 @@
         fsGroup: 1000,
       },
     },  // httpProxyContainer
-
 
     tfDeployment: {
       apiVersion: "extensions/v1beta1",

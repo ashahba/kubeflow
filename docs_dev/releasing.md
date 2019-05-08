@@ -127,7 +127,6 @@ This is a good place to start if you don't have an existing E2E workflow that is
     ```
     when run ```ks generate``` to have your repo checked out during release.
 
-
 1. Follow [E2E test workflows](https://github.com/kubeflow/testing) to add the workflow to prow.
 
 # Release Kubeflow
@@ -155,7 +154,6 @@ Use [this script](https://github.com/jlewi/kubeflow-dev/blob/master/create_conte
 ```
 create_context.sh $(kubectl config current-context) kubeflow-releasing
 ```
-
 
 ## Update TFJob
 
@@ -320,7 +318,6 @@ the correct Docker image. See sections below for component specific instructions
    ./update_components.sh "${COMPONENT}" "${TAG}"
    ```
    Currently the script supports tf-operator, pytorch-operator, katib, jupyter-notebooks, and centraldashboard.
-
 
 ### Release branching policy
 

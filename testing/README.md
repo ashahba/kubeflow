@@ -55,7 +55,6 @@ http://127.0.0.1:8001/api/v1/proxy/namespaces/kubeflow-test-infra/services/argo-
 
 TODO(jlewi): We can probably make the UI publicly available since I don't think it offers any ability to launch workflows.
 
-
 ## Running the tests
 
 ### Run a presubmit
@@ -78,7 +77,6 @@ ks apply prow -c workflows
 ```
   * You can set COMMIT to `master` to use HEAD
 
-
 ## Setting up the Test Infrastructure
 
 Our tests require a K8s cluster with Argo installed. This section provides the instructions
@@ -99,7 +97,6 @@ gcloud --project=${PROJECT} container clusters create \
 	${CLUSTER}
 ```
 
-
 ### Create a GCP service account
 
 * The tests need a GCP service account to upload data to GCS for Gubernator
@@ -111,7 +108,6 @@ gcloud iam service-accounts --project=kubeflow-ci create ${SERVICE_ACCOUNT} --di
     	--member serviceAccount:${SERVICE_ACCOUNT}@${PROJECT}.iam.gserviceaccount.com --role roles/container.developer
 ```
 * The service account needs to be able to create K8s resources as part of the test.
-
 
 Create a secret key for the service account
 

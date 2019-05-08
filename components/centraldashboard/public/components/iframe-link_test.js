@@ -53,7 +53,6 @@ describe('Iframe Link', () => {
         iframeLink.click();
     });
 
-
     it('Pushes history when clicked clicked', async () => {
         iframeLink.href = '/test-page';
         spyOn(window.history, 'pushState');

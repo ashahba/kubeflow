@@ -94,7 +94,6 @@ This means if something happens to the data node could be lost.
 Furthermore, in the event a pod is restarted it could be reassigned to a different node which
 doesn't have the data.
 
-
 ```
 ks param set ${COMPONENT_NAME} backend local
 ks apply ${ENVIRONMENT} -c ${COMPONENT_NAME}

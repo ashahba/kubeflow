@@ -8,11 +8,11 @@ function showDialog(options) {
     $('<div id="' + id + '" class="dialog-container"><div class="mdl-card mdl-shadow--16dp" id="' + id + '_content"></div></div>').appendTo("body");
     var dialog = $('#' + id);
     var content = dialog.find('.mdl-card');
-    
+
     // Content text
     $('<h5>' + options.title + '</h5>').appendTo(content);
     $('<p>' + options.text + '</p>').appendTo(content);
-    
+
     if (options.negative || options.positive) {
         var buttonBar = $('<div class="mdl-card__actions dialog-button-bar"></div>');
         if (options.negative) {
@@ -38,7 +38,7 @@ function showDialog(options) {
         buttonBar.appendTo(content);
     }
     componentHandler.upgradeDom();
-    
+
     // Close the dialog on click out
     dialog.click(function () {
         hideDialog(dialog);

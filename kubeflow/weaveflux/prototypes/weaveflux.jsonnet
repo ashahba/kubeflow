@@ -9,5 +9,4 @@
 local k = import "k.libsonnet";
 local all = import "kubeflow/weaveflux/all.libsonnet";
 
-
 std.prune(k.core.v1.list.new(all.weaveflux(params, env)))

@@ -53,8 +53,8 @@ On linux you can install the [download](https://golang.org/dl/) and follow the [
 golang-1.12 uses the golang module framework. See [golang Modules](https://github.com/golang/go/wiki/Modules).
 You should add the environment variable `GO111MODULE=on` to your shell init file
 
-Normally go will build a dependency list in the go.mod file, installing 
-a dependency explicitly is done by running `go get <dependency>`. 
+Normally go will build a dependency list in the go.mod file, installing
+a dependency explicitly is done by running `go get <dependency>`.
 See the [use case](https://github.com/golang/go/wiki/Modules#why-am-i-getting-an-error-cannot-find-module-providing-package-foo) in the golang Modules Wiki.
 golang-1.12 no longer creates a vendor directory.
 
@@ -81,7 +81,6 @@ ln -sf ${GIT_KUBEFLOW} ${GOPATH}/src/github.com/kubeflow/kubeflow
 
 * GIT_KUBEFLOW should be the location where you checked out https://github.com/kubeflow/kubeflow. GOPATH is typically $HOME/go.
 
-
 ## Building kfctl
 
 ##### `make build-kfctl`
@@ -93,7 +92,6 @@ make build-kfctl
 * This will create `bin/kfctl` with full debug information
 
 * If you get an error about missing files in `/tmp/v2`, you are hitting [#2790](https://github.com/kubeflow/kubeflow/issues/2790) and need to delete `/tmp/v2` and rerun the build.
-
 
 #### Build and test in a container
 
@@ -126,7 +124,7 @@ docker run -it \
 docker run  -v ${REPO_ROOT}:/go/src/github.com/kubeflow/kubeflow  \
   -v ${REPO_ROOT}/bootstrap/bin/tmp:/tmp \
   -it $IMAGE \
-  /bin/bash -c "cd /go/src/github.com/kubeflow/kubeflow/bootstrap;exec /bin/bash"  
+  /bin/bash -c "cd /go/src/github.com/kubeflow/kubeflow/bootstrap;exec /bin/bash"
 ```
 
 Then to build it run the following inside the container
@@ -150,7 +148,6 @@ make install #depends on build-kfctl
 ```
 
 * Installs kfctl in /usr/local/bin
-
 
 ##### `make build-kftl-container`
 
@@ -186,7 +183,7 @@ make run-kfctl-container
 
 > how to deploy gcp from within the container<br>
 
-Run 
+Run
 
 ```sh
 KFCTL_TARGET=kfctl_base MOUNT_KUBE='' make run-kfctl-container
@@ -203,7 +200,6 @@ $ kfctl generate all -V
 $ CLIENT_ID=XXX CLIENT_SECRET=YYY kfctl apply all -V
 ```
 
-
 ##### `make test-init`
 
 ```sh
@@ -211,7 +207,6 @@ make test-init
 ```
 
 * will run `kfctl init` for gcp, minikube and no platform
-
 
 ## kfctl unit tests
 
@@ -225,9 +220,7 @@ GCLOUD_PROJECT=kubeflow-ci make build-builder-container-gcb
 
 This image is then set [unit_tests.jsonnet](https://github.com/kubeflow/kubeflow/blob/master/testing/workflows/components/unit_tests.jsonnet).
 
-
-
-## Building bootstrap 
+## Building bootstrap
 
 ##### `make build-bootstrap`
 

@@ -191,5 +191,4 @@ local seldonDeployment =
     },
   };
 
-
 if params.pvcName == "null" then k.core.v1.list.new([seldonDeployment]) else k.core.v1.list.new([pvcClaim, seldonDeployment])

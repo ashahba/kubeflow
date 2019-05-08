@@ -56,7 +56,7 @@ echo "NODE_PORT=${NODE_PORT}" >> /var/shared/healthz.env
 echo "BACKEND_ID=${BACKEND_ID}" >> /var/shared/healthz.env
 
 kubectl get configmap -n ${NAMESPACE} envoy-config -o jsonpath='{.data.envoy-config\.json}' |
-  sed -e "s|{{JWT_AUDIENCE}}|${JWT_AUDIENCE}|g" >/var/shared/envoy-config.json
+  sed -e "s|{{JWT_AUDIENCE}}|${JWT_AUDIENCE}|g" > /var/shared/envoy-config.json
 
 echo "Restarting envoy"
 curl -s ${ENVOY_ADMIN}/quitquitquit

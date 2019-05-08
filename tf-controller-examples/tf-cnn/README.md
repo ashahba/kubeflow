@@ -12,7 +12,6 @@ This directory contains code to train convolutional
 neural networks using [tf_cnn_benchmarks](https://github.com/tensorflow/benchmarks/tree/master/scripts/tf_cnn_benchmarks)
 which is optimized for performance.
 
-
 For instructions on running these jobs refer to the
 [guide](https://www.kubeflow.org/docs/guides/components/tftraining/).
 

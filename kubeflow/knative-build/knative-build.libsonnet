@@ -261,7 +261,6 @@
     },  // build controller role binding
     knativeBuildControllerRoleBinding:: knativeBuildControllerRoleBinding,
 
-
     local knativeBuildRole = {
       apiVersion: "rbac.authorization.k8s.io/v1beta1",
       kind: "Role",
@@ -356,7 +355,6 @@
       ],
     },  // role
     knativeBuildRole:: knativeBuildRole,
-
 
     all:: [
       self.knativeBuildRole,

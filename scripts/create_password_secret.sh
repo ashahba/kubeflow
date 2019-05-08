@@ -7,7 +7,7 @@ user=$1
 # bcrypt encoded password
 password=$2
 
-PASSWORDB64=`echo "${password}" | base64`
+PASSWORDB64=$(echo "${password}" | base64)
 
 #PASSWORDB64="${password}"
 

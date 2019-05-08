@@ -12,10 +12,10 @@
 # https://pantheon.corp.google.com/apis/credentials/oauthclient/459682233032-a76ps35eh3j8odvudf4292bgq0jam74i.apps.googleusercontent.com?project=kf-gcp-deploy0&organizationId=714441643818
 
 GOOGLE_APPLICATION_CREDENTIALS=/usr/local/google/home/zhenghui/env/kf-gcp-deploy0-load-test.json \
-SERVICE_CLIENT_ID=112401461927766705527 \
-CLIENT_ID=459682233032-a76ps35eh3j8odvudf4292bgq0jam74i.apps.googleusercontent.com \
-CLIENT_SECRET=<client secret> \
-  python test_deploy_app.py \
+  SERVICE_CLIENT_ID=112401461927766705527 \
+  CLIENT_ID=459682233032-a76ps35eh3j8odvudf4292bgq0jam74i.apps.googleusercontent.com \
+  CLIENT_SECRET= secret < client > python \
+  test_deploy_app.py \
   --mode="loadtest" \
   --kfversion="v0.4.1" \
   --project_prefix="kf-load-test-project" \

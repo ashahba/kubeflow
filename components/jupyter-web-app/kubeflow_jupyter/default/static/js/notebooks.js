@@ -180,15 +180,15 @@ function createNbStatusCol(nb, i) {
     }
     // Check if it is downloading the image
     else if (reason == 'ContainerCreating') {
-      // Loading icon      
+      // Loading icon
       return createSpinner(reason, i)
     }
     else {
       icon = "fas fa-exclamation-triangle"
       size = "font-size:24px;color:orange"
       return createNbStatusIcon(reason, icon, size, i)
-    } 
-  } 
+    }
+  }
   else if ('terminated' in nb.status) {
     // Notebook shouldn't terminate
     reason = nb.status.terminated.reason
@@ -248,10 +248,10 @@ function createNbActionsCol(nb, i) {
   var col = $('<td>');
   // Connect
   ready = true
-  if ('running' in nb.status) { 
-    ready = false 
+  if ('running' in nb.status) {
+    ready = false
   }
-  
+
   var connect_btn = $("<button>").attr({
     class: "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored ",
     id: 'connect'+i,
@@ -278,7 +278,6 @@ function createNbActionsCol(nb, i) {
     for: 'delete' + i,
   }).text('Delete the Notebook')
 
-  
   delete_btn.append(delete_icon)
   col.append(delete_btn)
      .append(delTip)
@@ -306,7 +305,7 @@ function createDialog(ns, nm) {
 function updateNotebooksInNamespace(ns) {
   // Put the add Notebook button
   var tmp = $('<div>')
-  
+
   // Get the Notebooks for selected Namespace
   $.getJSON(prefix + `/api/namespaces/${ns}/notebooks`, function(data, status) {
     // Remove data from table and errors
@@ -314,7 +313,7 @@ function updateNotebooksInNamespace(ns) {
     // $('#nb-table-body').empty();
 
     if(data.success == true){
-      // First check if the state hasn't changed      
+      // First check if the state hasn't changed
       if (_.isEqual(prevNotebooks, data.notebooks)) {
         updatePolling(false)
         return;
@@ -337,12 +336,12 @@ function updateNotebooksInNamespace(ns) {
         var col3 = $("<td>").attr({
           'id': 'image' + i,
         }).text(nb.srt_image)
-        
+
         $("<div>").attr({
           'class': "mdl-tooltip",
           'data-mdl-for': "image" + i,
         }).text(nb.image).appendTo('body')
-        
+
         // Col 4: Notebook CPU
         var col4 = $("<td>").text(nb.cpu)
 

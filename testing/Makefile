@@ -19,7 +19,6 @@ DOCKERHUB_PROJECT=hub.docker.com/r/${PROJECT_ID}
 TAG := $(shell date +v%Y%m%d)-$(shell git describe --tags --always --dirty)-$(shell git diff | shasum -a 256 | cut -c -6)
 DIR := ${CURDIR}
 
-
 # To build without the cache set the environment variable
 # export DOCKER_BUILD_OPTS=--no-cache
 define build

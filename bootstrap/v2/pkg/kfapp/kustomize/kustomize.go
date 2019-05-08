@@ -143,10 +143,7 @@ func GetKfApp(kfdef *cltypes.KfDef) kftypes.KfApp {
 				Type:    kftypes.DefaultAppType,
 				Version: _kustomize.Spec.Version,
 			},
-			Info: []application.InfoItem {
-
-			},
-
+			Info: []application.InfoItem{},
 		},
 	}
 
@@ -251,7 +248,7 @@ func (kustomize *kustomize) Apply(resources kftypes.ResourceEnum) error {
 // TODO based on bootstrap/app/k8sUtil.go. Need to merge.
 // TODO: it can't handle "kind: list" yet.
 func (kustomize *kustomize) deployResources(config *rest.Config, filename string,
-	callback func(string, schema.GroupKind, map[string]interface{})([]byte, error)) error {
+	callback func(string, schema.GroupKind, map[string]interface{}) ([]byte, error)) error {
 	// Create a restmapper to determine the resource type.
 	_discoveryClient, err := discovery.NewDiscoveryClientForConfig(config)
 	if err != nil {

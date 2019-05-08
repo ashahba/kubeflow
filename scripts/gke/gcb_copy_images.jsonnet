@@ -1,12 +1,12 @@
 // This is a jsonnet file to generate a GCB workflow to copy Kubeflow docker images to a personal GCR registry.
 //
-// The primary purpose of this workflow is to copy Docker images hosted outside of GCR to a 
+// The primary purpose of this workflow is to copy Docker images hosted outside of GCR to a
 // a GCR registry so they can be used with private GKE clusters.
 {
 
   // The newRegistry for the image
   local newRegistry = std.extVar("newRegistry"),
-  
+
   // A template for defining the steps  to retag each image.
   local subGraphTemplate(image) = {
     local imagePieces = std.split(image, "/"),

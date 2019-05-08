@@ -19,7 +19,6 @@ $(window).on('load', function () {
   setTooltipsOnImmutable();
 });
 
-
 $(document).ready(function() {
   // Function handling the Form submit
   // stop the default submit action and apply custom JS function
@@ -30,7 +29,6 @@ $(document).ready(function() {
     postNotebook(form, body);
   })
 })
-
 
 // Dynamically update Image input field, based on radio button selection
 function setImageType() {
@@ -74,7 +72,7 @@ function  setWorkspaceEventListeners() {
         workspaceType.val('None')
       }
     }
-  
+
     workspaceType.trigger('change')
   })
 

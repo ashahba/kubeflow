@@ -31,7 +31,6 @@ local pvcClaim = {
   },
 };
 
-
 local seldonDeployment = {
   apiVersion: "machinelearning.seldon.io/v1alpha1",
   kind: "SeldonDeployment",
@@ -104,6 +103,5 @@ local seldonDeployment = {
     ],
   },
 };
-
 
 if params.pvcName == "null" then k.core.v1.list.new([seldonDeployment]) else k.core.v1.list.new([pvcClaim, seldonDeployment])

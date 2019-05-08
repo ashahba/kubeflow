@@ -15,7 +15,6 @@ local env = {
 
 local kbOperator = kubebenchOperator.new(params, env);
 
-
 local testCases = [
   {
     actual: kbOperator.kubebenchCRD,

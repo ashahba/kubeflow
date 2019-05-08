@@ -18,16 +18,14 @@ Here's how this works
 
   * The script uses the [hub cli](https://hub.github.com/) to create a PR
 
-
 * update_job.yaml provides an example job spec for running the job.
-
 
 ## kubeflow-bot
 
 * The script uses the [kubeflow-bot](https://github.com/kubeflow-bot) to host the fork containing the PR
 * The ssh key for the kubeflow-bot account is stored as a K8s secret
 
-  * We use 
+  * We use
 
     * **project**: kubeflow-releasing
   	* **cluster**: kf-releasing
@@ -39,7 +37,7 @@ Here's how this works
 1. Create secrets in the cluster containing the GitHub ssh keys.
 
     ```
-    kubectl create secret generic kubeflow-bot-ssh --from-file=id_rsa=kubeflow-bot --from-file=id_rsa.pub=kubeflow-bot.pub 
+    kubectl create secret generic kubeflow-bot-ssh --from-file=id_rsa=kubeflow-bot --from-file=id_rsa.pub=kubeflow-bot.pub
     ```
 
     * Use a public/private SSH key that has been added to the kubeflow-bot GitHub account

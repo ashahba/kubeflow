@@ -1,5 +1,4 @@
 
-
 local util = import "../../tools/gcb/template.libsonnet";
 
 local useImageCache = util.toBool(std.extVar("useImageCache"));

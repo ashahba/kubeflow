@@ -160,7 +160,6 @@
     },
     clusterRoleBinding:: clusterRoleBinding,
 
-
     all:: [
       self.kubebenchCRD,
       self.deployment,

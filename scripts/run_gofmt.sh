@@ -14,7 +14,7 @@ usage() {
 
 # Checkout versions of the code that shouldn't be overwritten
 raw=$(git remote)
-readarray -t remotes <<<"$raw"
+readarray -t remotes <<< "$raw"
 
 repo_name=''
 for r in "${remotes[@]}"; do

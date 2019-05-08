@@ -17,9 +17,9 @@ package options
 import "flag"
 
 type ServerOption struct {
-	Username   string
-	Pwhash     string
-	AllowHttp  bool
+	Username  string
+	Pwhash    string
+	AllowHttp bool
 	// Email for password reset?
 	// Email                string
 }

@@ -11,6 +11,6 @@ build-gcb-spec: gcb_copy_images.jsonnet
 	jsonnet ./gcb_copy_images.jsonnet  --ext-str newRegistry=$(NEW_REGISTRY) \
 		> ./build/gcb_copy_images.json
 
-copy-gcb: build-gcb-spec		
+copy-gcb: build-gcb-spec
 	gcloud builds submit --machine-type=n1-highcpu-32 --project=$(PROJECT) --config=./build/gcb_copy_images.json \
 		--timeout=3600 --no-source

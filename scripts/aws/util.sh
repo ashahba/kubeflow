@@ -25,12 +25,12 @@ generate_aws_infra_configs() {
 apply_aws_infra() {
   source ${KUBEFLOW_INFRA_DIR}/cluster_features.sh
 
-  if ! eksctl get cluster --name=${AWS_CLUSTER_NAME} >/dev/null ; then
+  if ! eksctl get cluster --name=${AWS_CLUSTER_NAME} > /dev/null; then
     create_eks_cluster
 
     # Find nodegroup role for later inline policy binding
-    AWS_NODEGROUP_ROLE_NAMES=$(aws iam list-roles \
-      | jq -r ".Roles[] \
+    AWS_NODEGROUP_ROLE_NAMES=$(aws iam list-roles |
+      jq -r ".Roles[] \
       | select(.RoleName \
       | startswith(\"eksctl-${AWS_CLUSTER_NAME}\") and contains(\"NodeInstanceRole\")) \
       .RoleName")
@@ -88,12 +88,11 @@ wait_cluster_update() {
 attach_inline_policy() {
   declare -r POLICY_NAME="$1" POLICY_DOCUMENT="$2"
 
-  for IAM_ROLE in ${AWS_NODEGROUP_ROLE_NAMES//,/ }
-  do
+  for IAM_ROLE in ${AWS_NODEGROUP_ROLE_NAMES//,/ }; do
     echo "Attach inline policy $POLICY_NAME for iam role $IAM_ROLE"
     if ! aws iam put-role-policy --role-name $IAM_ROLE --policy-name $POLICY_NAME --policy-document file://${POLICY_DOCUMENT}; then
-        echo "Unable to attach iam inline policy $POLICY_NAME to role $IAM_ROLE" >&2
-        return 1
+      echo "Unable to attach iam inline policy $POLICY_NAME to role $IAM_ROLE" >&2
+      return 1
     fi
   done
 
@@ -204,7 +203,7 @@ validate_aws_arg() {
 }
 
 check_aws_cli() {
-  if ! which "aws" &>/dev/null && ! type -a "aws" &>/dev/null ; then
+  if ! which "aws" &> /dev/null && ! type -a "aws" &> /dev/null; then
     echo "You don't have awscli installed. Please install aws cli. https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html"
     exit 1
   fi
@@ -212,42 +211,42 @@ check_aws_cli() {
 
 check_eksctl_cli() {
   # eskctl is recommended to create EKS clusters now. This will be replaced by awscli eventually.
-  if ! which "eksctl" &>/dev/null && ! type -a "eksctl" &>/dev/null ; then
+  if ! which "eksctl" &> /dev/null && ! type -a "eksctl" &> /dev/null; then
     echo "You don't have eksctl installed. Please install eksctl cli. https://eksctl.io/"
     exit 1
   fi
 }
 
 check_jsonnet() {
-  if ! which "ks" &>/dev/null && ! type -a "ks" &>/dev/null ; then
+  if ! which "ks" &> /dev/null && ! type -a "ks" &> /dev/null; then
     echo "You don't have ks installed. Please install ksonnet. https://github.com/ksonnet/ksonnet/"
     exit 1
   fi
 }
 
 check_aws_iam_authenticator() {
-  if ! which "aws-iam-authenticator" &>/dev/null && ! type -a "aws-iam-authenticator" &>/dev/null ; then
+  if ! which "aws-iam-authenticator" &> /dev/null && ! type -a "aws-iam-authenticator" &> /dev/null; then
     echo "You don't have aws-iam-authenticator installed. Please install aws-iam-authenticator. https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html"
     exit 1
   fi
 }
 
 check_jq() {
-  if ! which "jq" &>/dev/null && ! type -a "jq" &>/dev/null ; then
+  if ! which "jq" &> /dev/null && ! type -a "jq" &> /dev/null; then
     echo "You don't have jq installed. Please install jq. https://stedolan.github.io/jq/download/"
     exit 1
   fi
 }
 
 check_aws_credential() {
-  if ! aws sts get-caller-identity >/dev/null ; then
+  if ! aws sts get-caller-identity > /dev/null; then
     echo "aws get caller identity failed. Please check the aws credentials provided and try again."
     exit 1
   fi
 }
 
 check_nodegroup_roles() {
-  if eksctl get cluster --name=${AWS_CLUSTER_NAME} >/dev/null ; then
+  if eksctl get cluster --name=${AWS_CLUSTER_NAME} > /dev/null; then
     if [[ -z "$AWS_NODEGROUP_ROLE_NAMES" ]]; then
       echo "Nodegroup Roles must be provided for existing cluster with --awsNodegroupRoleNames <AWS_NODEGROUP_ROLE_NAMES>"
       exit 1
@@ -267,7 +266,7 @@ check_aws_setups() {
 
 # don't enabled cluster create by default. Use flags to control it.
 create_eks_cluster() {
-  if ! eksctl create cluster --config-file=${KUBEFLOW_INFRA_DIR}/cluster_config.yaml ; then
+  if ! eksctl create cluster --config-file=${KUBEFLOW_INFRA_DIR}/cluster_config.yaml; then
     echo "aws eks create failed."
     exit 1
   fi
@@ -275,8 +274,8 @@ create_eks_cluster() {
   local AWS_ROLE_NAME=$(aws sts get-caller-identity | jq -r '.Arn' | cut -d'/' -f2)
   local context_name="${AWS_ROLE_NAME}@${AWS_CLUSTER_NAME}.${AWS_REGION}.eksctl.io"
 
-  if [ `kubectl config use-context ${context_name}` &> /dev/null ] ; then
-      eksctl utils write-kubeconfig --name=${AWS_CLUSTER_NAME}
+  if [ $(kubectl config use-context ${context_name}) ] &> /dev/null; then
+    eksctl utils write-kubeconfig --name=${AWS_CLUSTER_NAME}
   fi
 }
 
@@ -309,8 +308,8 @@ uninstall_aws_platform() {
   fi
 
   MANAGED_CLUSTER=${MANAGED_CLUSTER:-"false"}
-  if [ $MANAGED_CLUSTER = "true" ] ; then
-    if ! eksctl delete cluster --config-file=${KUBEFLOW_INFRA_DIR}/cluster_config.yaml ; then
+  if [ $MANAGED_CLUSTER = "true" ]; then
+    if ! eksctl delete cluster --config-file=${KUBEFLOW_INFRA_DIR}/cluster_config.yaml; then
       echo "Please go to aws console to check CloudFormation status and double make sure your cluster has been shutdown."
     fi
   fi
@@ -319,11 +318,10 @@ uninstall_aws_platform() {
 delete_iam_role_inline_policy() {
   declare -r POLICY_NAME="$1"
 
-  for IAM_ROLE in ${AWS_NODEGROUP_ROLE_NAMES//,/ }
-  do
+  for IAM_ROLE in ${AWS_NODEGROUP_ROLE_NAMES//,/ }; do
     echo "Deleting inline policy $POLICY_NAME for iam role $IAM_ROLE"
     if ! aws iam delete-role-policy --role-name=$IAM_ROLE --policy-name=$POLICY_NAME; then
-        echo "Unable to delete iam inline policy $POLICY_NAME" >&2
+      echo "Unable to delete iam inline policy $POLICY_NAME" >&2
     fi
   done
 }

@@ -30,4 +30,3 @@ docker build -t ${IMAGE}:$TAG --build-arg registries=reg_tmp --target=bootstrap 
 
 gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
 gcloud docker -- push "${IMAGE}:${TAG}"
-

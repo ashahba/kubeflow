@@ -69,7 +69,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
           release: name,
         };
 
-
         local apiFeBase1 =
           baseApife +
           deployment.mixin.metadata.withName(name + "-seldon-apiserver") +
@@ -85,13 +84,11 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
                           deployment.mixin.spec.template.metadata.withLabels(apiFeBase1.metadata.labels) +
                           deployment.mixin.spec.template.metadata.withAnnotationsMixin(extraAnnotations);
 
-
         if withRbac == "true" then
           apiFeBase +
           deployment.mixin.spec.template.spec.withServiceAccountName("seldon")
         else
           apiFeBase,
-
 
       apifeService(serviceType)::
 
@@ -126,7 +123,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
                   container.withEnv(env) +
                   container.withImagePullPolicy("IfNotPresent");
 
-
         local labels = {
           "app.kubernetes.io/name": name,
           heritage: "ksonnet",
@@ -143,7 +139,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
         local depOp = depOp1 +
                       deployment.mixin.spec.selector.withMatchLabels(depOp1.metadata.labels) +
                       deployment.mixin.spec.template.metadata.withLabels(depOp1.metadata.labels);
-
 
         if withRbac == "true" then
           depOp +
@@ -190,7 +185,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
         rbacServiceAccount +
         serviceAccountMixin.metadata.withNamespace(namespace),
 
-
       rbacCRDClusterRole():
 
         local clusterRole = std.filter(getCRDClusterRole, seldonTemplate.items)[0];
@@ -210,7 +204,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
         role +
         roleMixin.metadata.withNamespace(namespace),
 
-
       rbacAmbassadorRole():
 
         local role = std.filter(getAmbassadorRole, seldonTemplate.items)[0];
@@ -223,7 +216,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
         local clusterRole = std.filter(getAmbassadorClusterRole, seldonTemplate.items)[0];
 
 	clusterRole,
-
 
       rbacCRDClusterRoleBinding():
 
@@ -287,7 +279,6 @@ local getEnvNotRedis(x) = x.name != "SELDON_CLUSTER_MANAGER_REDIS_HOST";
         ambassadorDeployment +
         deployment.mixin.metadata.withName(name + "-ambassador") +
         deployment.mixin.metadata.withNamespace(namespace),
-
 
       ambassadorService():
 

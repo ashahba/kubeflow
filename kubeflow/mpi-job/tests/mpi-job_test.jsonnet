@@ -39,7 +39,6 @@ local paramsCustomWithVolumeNull = {
   volumeMountPath: "null"
 };
 
-
 local env = {
   namespace: "kubeflow",
 };

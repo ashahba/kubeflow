@@ -35,7 +35,6 @@
       )
     else {},
 
-
   // Default parameters.
   defaultParams:: {
     bucket: "kubeflow-releasing-artifacts",
@@ -187,7 +186,6 @@
         },
         sidecars: sidecars,
       };  // buildTemplate
-
 
       local buildImageTemplate(step_name, dockerfile, image) =
         buildTemplate(

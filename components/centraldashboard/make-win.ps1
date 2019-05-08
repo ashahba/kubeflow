@@ -19,7 +19,6 @@ $IMG = "gcr.io/kubeflow-images-public/centraldashboard"
 # In particular we exclude changes to the ksonnet configs.
 $CHANGED_FILES = git diff-files --relative=components/centraldashboard
 
-
 # Changed files is empty; not dirty
 # Don't include --dirty because it could be dirty if files outside the ones we care
 # about changed.

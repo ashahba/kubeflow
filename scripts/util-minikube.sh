@@ -51,7 +51,7 @@ is_kubeflow_ready() {
 create_local_fs_mount_spec() {
   if $MOUNT_LOCAL; then
     # Create a persistent volume
-    cat <<EOF > ${KUBEFLOW_KS_DIR}/pv.yaml
+    cat << EOF > ${KUBEFLOW_KS_DIR}/pv.yaml
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -78,7 +78,7 @@ spec:
 EOF
 
     # Create a PVC attached to the volume
-    cat <<EOF > ${KUBEFLOW_KS_DIR}/pv-claim.yaml
+    cat << EOF > ${KUBEFLOW_KS_DIR}/pv-claim.yaml
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -107,7 +107,7 @@ mount_local_fs() {
 # Setup various network tunnels
 setup_tunnels() {
   sleep 30 # Give services time to bind
-  kubectl -n kubeflow port-forward svc/ambassador 8080:80 2>&1 >/dev/null &
+  kubectl -n kubeflow port-forward svc/ambassador 8080:80 2>&1 > /dev/null &
   echo -e "Access Kubeflow dashboard at ${GREEN}http://localhost:8080/${NC}"
   echo -e "Access Jupyter at ${GREEN}http://localhost:8080/hub/${NC}"
 }

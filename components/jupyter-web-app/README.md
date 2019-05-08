@@ -7,7 +7,6 @@ The new Jupyter UI uses [Python Flask](http://flask.pocoo.org/) for the backend 
 
 Please note that as soon as the Profile Controller supports automatic creation of read/write ServiceAccounts for each `Profile`, the new Jupyter UI will be updated to use the respective JWTs and perform all K8s API requests via [K8s Impersonation](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#user-impersonation). This will ultimately provide isolation of resources between Users and avoid any possible conflicts. For more information about User authentication and e2e workflow see the [Jupyter design doc](http://bit.ly/kf_jupyter_design_doc)
 
-
 ## User Interaction
 As soon as the User points his/her browser to http://<KUBEFLOW_IP>/jupyter/ he/she will be directed to the new Jupyter UI. By default the UI will try to list the Notebooks in the namespace of its `ServiceAccount`, currently `kubeflow`, as mentioned above. If something goes wrong the UI will notify the user with an appropriate message containing info about the API call error.
 

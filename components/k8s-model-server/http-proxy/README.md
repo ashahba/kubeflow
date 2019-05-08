@@ -33,7 +33,6 @@ To enable query from http-proxy, we have some requirements for saved model expor
 
 To pass any binary data through json, we support base64 encoding and decoding, you can simple change your data into a json object with key `'b64'` and value with base64 encode binary.
 
-
 ### Predict
 
 - **URL**: `POST /model/${model_name}:predict`
@@ -74,7 +73,6 @@ In the [example above](#Predict), that corresponds to a [tensorflow savedModel](
 
 While the input json object key is fixed with `"instances"` and output json key is fixed with `"predictions"`.
 
-
 ### Classify
 
 - **URL**: `POST /model/${model_name}:classify`
@@ -110,7 +108,6 @@ or
 
 In the [example above](#Classify), that corresponds to a [tensorflow savedModel](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md) with method signature `tensorflow.saved_model.signature_constants.CLASSIFY_METHOD_NAME`, input params with signature/key `"tf_model_input"` and `"image"` and output params with signature/key `"tf_model_output"`.
 While the input json object key is fixed with `"instances"` and output json key is fixed with `"result"`.
-
 
 ## To Do
 

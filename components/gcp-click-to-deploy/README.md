@@ -45,7 +45,6 @@ See the [dev guide](../../bootstrap/developer_guide.md) for more detail.
 
 We have a dev instance running at [https://deploy-staging.kubeflow.cloud](https://deploy-staging.kubeflow.cloud)
 
-
 ```
 PROJECT=kubeflow-dev
 CLUSTER=dev-cluster
@@ -53,7 +52,6 @@ NAMESPACE=gcp-deploy
 ```
 
 To update the deployment run
-
 
 ```
 make deploy-latest
@@ -64,7 +62,6 @@ this will
   * build a new version of the image `gcr.io/kubeflow-images-public/gcp-click-to-deploy`
   * Update the ksonnet component to use that image
   * Update the deployment
-
 
 The script
 

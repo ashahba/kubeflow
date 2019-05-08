@@ -101,7 +101,6 @@ scrape_configs:
     regex: ([^:]+)(?::\d+)?;(\d+)
     replacement: $1:$2
 
-
 # Scrape config for k8s services
 - job_name: 'kubernetes-services'
 

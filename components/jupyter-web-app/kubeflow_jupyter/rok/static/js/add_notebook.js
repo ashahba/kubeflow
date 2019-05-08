@@ -8,7 +8,7 @@ $(window).on('load', function () {
 
   // Enable Autofill button if a Lab URL is provided
   document.querySelector("#autofill").MaterialButton.disable()
-  
+
   $('#rokLabURL').on('change keyup paste', function() {
     if (this.value.length > 0) {
       $('#autofill').removeAttr('disabled data-toggle data-placement title');
@@ -49,7 +49,7 @@ $(window).on('load', function () {
   // Autofill the Spawner form using metadata from a Rok Jupyter Lab URL
   $('#autofill').click(function() {
     formCleanup();
-    
+
     setTimeout(function() {
       autofillForm();
     }, 250);
@@ -68,7 +68,6 @@ $(window).on('load', function () {
   setTooltipsOnImmutable();
 });
 
-
 $(document).ready(function() {
   // Function handling the Form submit
   // stop the default submit action and apply custom JS function
@@ -79,7 +78,6 @@ $(document).ready(function() {
     postNotebook(form, body);
   })
 })
-
 
 // Dynamically update Image input field, based on radio button selection
 function setImageType() {

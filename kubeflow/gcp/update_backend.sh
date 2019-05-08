@@ -26,16 +26,16 @@ while [[ -z ${BACKEND_NAME} ]]; do
   sleep 2
 done
 
-while [[ -z ${BACKEND_SERVICE} ]];
-do BACKEND_SERVICE=$(gcloud --project=${PROJECT} compute backend-services list --filter=name~k8s-be-${NODE_PORT}- --uri);
-echo "Waiting for the backend-services resource PROJECT=${PROJECT} NODEPORT=${NODE_PORT} SERVICE=${SERVICE}...";
-sleep 2;
+while [[ -z ${BACKEND_SERVICE} ]]; do
+  BACKEND_SERVICE=$(gcloud --project=${PROJECT} compute backend-services list --filter=name~k8s-be-${NODE_PORT}- --uri)
+  echo "Waiting for the backend-services resource PROJECT=${PROJECT} NODEPORT=${NODE_PORT} SERVICE=${SERVICE}..."
+  sleep 2
 done
 
-while [[ -z ${HEALTH_CHECK_URI} ]];
-do HEALTH_CHECK_URI=$(gcloud compute --project=${PROJECT} health-checks list --filter=name~${BACKEND_NAME} --uri);
-echo "Waiting for the healthcheck resource PROJECT=${PROJECT} NODEPORT=${NODE_PORT} SERVICE=${SERVICE}...";
-sleep 2;
+while [[ -z ${HEALTH_CHECK_URI} ]]; do
+  HEALTH_CHECK_URI=$(gcloud compute --project=${PROJECT} health-checks list --filter=name~${BACKEND_NAME} --uri)
+  echo "Waiting for the healthcheck resource PROJECT=${PROJECT} NODEPORT=${NODE_PORT} SERVICE=${SERVICE}..."
+  sleep 2
 done
 
 echo health check URI is ${HEALTH_CHECK_URI}

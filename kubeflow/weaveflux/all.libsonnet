@@ -14,7 +14,6 @@
 
   ],
 
-
   // Parts should be a dictionary containing jsonnet representations of the various
   // K8s resources used to construct the prototypes listed above.
   parts(params, env):: {

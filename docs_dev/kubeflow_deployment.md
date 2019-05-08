@@ -46,14 +46,12 @@ experience.
      curl https://github.com/kubeflow/kubeflow/blob/master/scripts/gke/deploy.sh | bash
      ```
 
-
    * Alternatively, we'd like to offer a web-app that allows deployments with one click
 
      * A web-app creates an opportunity to offer a wizard that can help walk users through
        the setup process
 
      * A web-app can also eliminate the need to install any tools client side
-
 
    * We'd like to offer scripts for various platforms including major clouds as well
      as solutions for deploying Kubeflow locally on one's machine (e.g. docker, minikube, microk8s)
@@ -200,7 +198,6 @@ opening more.
 
 The current thinking is to follow the guidance of sig-apps and use an [application resource](https://github.com/kubernetes-sigs/application)
 to represent Kubeflow and attach events, status, and other metrics to that application as appropriate.
-
 
 * [kubeflow/kubeflow#1106](https://github.com/kubeflow/kubeflow/issues/1106) Use Application CRD to describe Kubeflow
 * [kubeflow/kubeflow#1142](https://github.com/kubeflow/kubeflow/issues/1142) - Report K8s events to indicate when Kubeflow is ready

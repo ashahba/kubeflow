@@ -97,7 +97,6 @@ the bucket name must be globally unique.
 gsutil mb gs://<bucket-name>
 ```
 
-
 ## Upload a Model
 You can train an inception model using the instructions from the
 [TensorFlow documentation](https://www.tensorflow.org/tutorials/image_retraining), or you can use the pre-uploaded, pre-trained [gcs bucket](gs://kubeflow-models/inception) directly.
@@ -148,7 +147,6 @@ to configure kubectl.
 ```commandline
 gcloud container clusters get-credentials model-serving --zone <your-zone> --project <your-project>
 ```
-
 
 ### Deploy your model to Kubernetes
 
@@ -270,7 +268,6 @@ the model can be accessed from the following:
 ```commandline
 curl -H "Content-Type: application/json" -X POST -d @input_file DOMAIN/models/MODEL_NAME:predict
 ```
-
 
 OUTPUTS
 

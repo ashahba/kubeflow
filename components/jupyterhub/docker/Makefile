@@ -25,7 +25,6 @@ else
 VERSION := $(shell date +v%Y%m%d)-$(shell git describe --always --dirty)-$(shell git diff | shasum -a256 | cut -c -6)
 endif
 
-
 PROJECT_ID=kubeflow
 GCR_PROJECT=gcr.io/${PROJECT_ID}
 DOCKERHUB_PROJECT=hub.docker.com/r/${PROJECT_ID}

@@ -22,13 +22,12 @@ set -e
 ks pkg remove kubeflow/pipeline
 
 # export GITHUB_TOKEN=[token]if hit rate limit
-if [ -z "$1" ]
-  then
-    # use HEAD
-    ks pkg install kubeflow/pipeline
-  else
-    # use user provided commit id
-    ks pkg install kubeflow/pipeline@$1
+if [ -z "$1" ]; then
+  # use HEAD
+  ks pkg install kubeflow/pipeline
+else
+  # use user provided commit id
+  ks pkg install kubeflow/pipeline@$1
 fi
 
 # Regenerate pipeline ksonnet component and recover default environment parameter

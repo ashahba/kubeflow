@@ -95,7 +95,6 @@ local expectedCrd = {
   },
 };
 
-
 local testCases = [
   {
     actual: pyjob.parts(params, env).crd,

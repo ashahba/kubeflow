@@ -92,7 +92,7 @@ local buildTemplate(step_name, command, working_dir=null, env_vars=[], sidecars=
     image: image,
     workingDir: working_dir,
     // TODO(jlewi): Change to IfNotPresent.
-    imagePullPolicy: "Always",    
+    imagePullPolicy: "Always",
     env: [
       {
         // Add the source directories to the python path.
@@ -449,7 +449,6 @@ local stepTemplates = std.map(function(i) i.template
                               , dagTemplates) +
                       std.map(function(i) i.template
                               , exitTemplates) + componentTests.argoTaskTemplates;
-
 
 // Add a task to a dag.
 local workflow = {

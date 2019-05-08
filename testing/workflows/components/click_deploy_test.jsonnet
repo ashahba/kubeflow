@@ -302,7 +302,6 @@ local stepTemplates = std.map(function(i) i.template
                       std.map(function(i) i.template
                               , exitTemplates) + componentTests.argoTaskTemplates;
 
-
 // Add a task to a dag.
 local workflow = {
   apiVersion: "argoproj.io/v1alpha1",

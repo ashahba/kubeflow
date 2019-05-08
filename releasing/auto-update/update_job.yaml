@@ -39,8 +39,8 @@ spec:
           readOnly: true
       containers:
       - command:
-        - python3 
-        - -m 
+        - python3
+        - -m
         - kubeflow.kubeflow.ci.update_jupyter_web_app
         - all
         - --build-project=kubeflow-releasing

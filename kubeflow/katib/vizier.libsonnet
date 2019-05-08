@@ -484,7 +484,6 @@
       },
     },  // coreRestDeployment
 
-
     uiService: {
       apiVersion: "v1",
       kind: "Service",

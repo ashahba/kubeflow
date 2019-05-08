@@ -67,7 +67,7 @@ if [[ "$#" -lt 2 ]]; then
   exit 2
 fi
 
-if git_status=$(git status --porcelain --untracked=no 2>/dev/null) && [[ -n "${git_status}" ]]; then
+if git_status=$(git status --porcelain --untracked=no 2> /dev/null) && [[ -n "${git_status}" ]]; then
   echo "!!! Dirty tree. Clean up and try again."
   exit 1
 fi
@@ -93,7 +93,7 @@ declare -r PULLSUBJ=$(join " " "${PULLS[@]/#/#}") # Generates something like "#1
 echo "+++ Updating remotes..."
 git remote update "${UPSTREAM_REMOTE}" "${FORK_REMOTE}"
 
-if ! git log -n1 --format=%H "${BRANCH}" >/dev/null 2>&1; then
+if ! git log -n1 --format=%H "${BRANCH}" > /dev/null 2>&1; then
   echo "!!! '${BRANCH}' not found. The second argument should be something like ${UPSTREAM_REMOTE}/release-0.21."
   echo "    (In particular, it needs to be a valid, existing remote branch that I can 'git checkout'.)"
   exit 1
@@ -112,16 +112,16 @@ return_to_kansas() {
   if [[ "${gitamcleanup}" == "true" ]]; then
     echo
     echo "+++ Aborting in-progress git am."
-    git am --abort >/dev/null 2>&1 || true
+    git am --abort > /dev/null 2>&1 || true
   fi
 
   # return to the starting branch and delete the PR text file
   if [[ -z "${DRY_RUN}" ]]; then
     echo
     echo "+++ Returning you to the ${STARTINGBRANCH} branch and cleaning up."
-    git checkout -f "${STARTINGBRANCH}" >/dev/null 2>&1 || true
+    git checkout -f "${STARTINGBRANCH}" > /dev/null 2>&1 || true
     if [[ -n "${cleanbranch}" ]]; then
-      git branch -D "${cleanbranch}" >/dev/null 2>&1 || true
+      git branch -D "${cleanbranch}" > /dev/null 2>&1 || true
     fi
     if [[ -n "${prtext}" ]]; then
       rm "${prtext}"
@@ -144,7 +144,7 @@ make-a-pr() {
   # crash.
   prtext="$(mktemp -t prtext.XXXX)" # cleaned in return_to_kansas
   local numandtitle=$(printf '%s\n' "${SUBJECTS[@]}")
-  cat >"${prtext}" <<EOF
+  cat > "${prtext}" << EOF
 Automated cherry pick of ${numandtitle}
 Cherry pick of ${PULLSUBJ} on ${rel}.
 ${numandtitle}
